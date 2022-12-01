@@ -1,6 +1,6 @@
 ﻿namespace Tests;
 
-public class SolverTests
+public class PartOneSolverTests
 {
     [Fact]
     public void PartOneSolver_SolvesExample_FromAdventOfCodeWebsite()
