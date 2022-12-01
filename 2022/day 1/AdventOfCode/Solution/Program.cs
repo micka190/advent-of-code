@@ -12,7 +12,8 @@ public static class Program
         else if (File.Exists(args[0]))
         {
             var input = File.ReadAllText(args[0]);
-            Console.WriteLine(PartOneSolver.SolveFor(input));
+            Console.WriteLine($"PART 1: {PartOneSolver.SolveFor(input)}");
+            Console.WriteLine($"PART 2: {PartTwoSolver.SolveFor(input)}");
         }
         else
         {
