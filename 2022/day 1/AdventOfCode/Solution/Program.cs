@@ -12,7 +12,7 @@ public static class Program
         else if (File.Exists(args[0]))
         {
             var input = File.ReadAllText(args[0]);
-            Console.WriteLine(Solver.SolveFor(input));
+            Console.WriteLine(PartOneSolver.SolveFor(input));
         }
         else
         {

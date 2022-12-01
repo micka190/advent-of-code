@@ -1,6 +1,6 @@
 ﻿namespace Solution;
 
-public static class Solver
+public static class PartOneSolver
 {
     public static int SolveFor(string input) =>
         string.IsNullOrEmpty(input)
