@@ -13,7 +13,7 @@ public static class StrategyParser
         { "Z", Hand.Scissors },
     };
 
-    public static (Hand Left, Hand Right) ParseLine(string input)
+    public static (Hand Left, Hand Right) ParseLineAsHandAndHand(string input)
     {
         var tokens = input.Trim().Split(" ");
         

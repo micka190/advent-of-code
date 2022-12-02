@@ -6,13 +6,13 @@ public class StrategyParserTests
     [InlineData("A X", Hand.Rock, Hand.Rock)]
     [InlineData("B Y", Hand.Paper, Hand.Paper)]
     [InlineData("C Z", Hand.Scissors, Hand.Scissors)]
-    public void ParseLine_ReturnsTupleOfHands_GivenValidInput(string input, Hand expectedLeft, Hand expectedRight)
+    public void ParseLiseAsHandAndHand_ReturnsTupleOfHands_GivenValidInput(string input, Hand expectedLeft, Hand expectedRight)
     {
         // Arrange
         // ...
 
         // Act
-        var (left, right) = StrategyParser.ParseLine(input);
+        var (left, right) = StrategyParser.ParseLineAsHandAndHand(input);
 
         // Assert
         left.Should().Be(expectedLeft);
@@ -20,13 +20,13 @@ public class StrategyParserTests
     }
 
     [Fact]
-    public void ParseLine_ThrowsArgumentException_WhenGivenInvalidInput()
+    public void ParseLiseAsHandAndHand_ThrowsArgumentException_WhenGivenInvalidInput()
     {
         // Arrange
         const string invalidInput = "A B ERROR\n ";
 
         // Act
-        var act = () => StrategyParser.ParseLine(invalidInput);
+        var act = () => StrategyParser.ParseLineAsHandAndHand(invalidInput);
 
         // Assert
         act.Should().Throw<ArgumentException>();
@@ -35,13 +35,13 @@ public class StrategyParserTests
     [Theory]
     [InlineData("_ A", "Left character is unsupported.")]
     [InlineData("A _", "Right character is unsupported.")]
-    public void ParseLine_ThrowsArgumentOutOfRangeException_WhenGivenLettersItDoesNotKnow(string input, string errorMessage)
+    public void ParseLiseAsHandAndHand_ThrowsArgumentOutOfRangeException_WhenGivenLettersItDoesNotKnow(string input, string errorMessage)
     {
         // Arrange
         var wildcardMessagePattern = $"*{errorMessage}*";
 
         // Act
-        var act = () => StrategyParser.ParseLine(input);
+        var act = () => StrategyParser.ParseLineAsHandAndHand(input);
 
         // Assert
         act.Should().Throw<ArgumentOutOfRangeException>().WithMessage(wildcardMessagePattern);

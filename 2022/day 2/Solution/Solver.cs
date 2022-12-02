@@ -26,7 +26,7 @@ public static class Solver
 
     private static int ComputeRoundScore(string round)
     {
-        var (opponent, player) = StrategyParser.ParseLine(round);
+        var (opponent, player) = StrategyParser.ParseLineAsHandAndHand(round);
         var outcome = GameResolver.Resolve(player, opponent);
         return HandScores[player] + OutcomeScores[outcome];
     }
