@@ -1,6 +1,9 @@
 ﻿namespace Solution;
 
-public class Solver
+public static class Solver
 {
-    
+    public static int SolveFor(string input)
+    {
+        return 0;
+    }
 }
