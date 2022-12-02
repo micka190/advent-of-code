@@ -22,12 +22,27 @@ public static class Solver
             : input
                 .Trim()
                 .Split("\n")
-                .Sum(ComputeRoundScore);
+                .Sum(ComputePartOneRoundScore);
+    
+    public static int SolveForPartTwo(string input) =>
+        string.IsNullOrEmpty(input)
+            ? 0
+            : input
+                .Trim()
+                .Split("\n")
+                .Sum(ComputePartTwoRoundScore);
 
-    private static int ComputeRoundScore(string round)
+    private static int ComputePartOneRoundScore(string round)
     {
         var (opponent, player) = StrategyParser.ParseLineAsHandAndHand(round);
         var outcome = GameResolver.Resolve(player, opponent);
+        return HandScores[player] + OutcomeScores[outcome];
+    }
+
+    private static int ComputePartTwoRoundScore(string round)
+    {
+        var (opponent, outcome) = StrategyParser.ParseLineAsHandAndOutcome(round);
+        var player = GameRigger.Rig(opponent, outcome);
         return HandScores[player] + OutcomeScores[outcome];
     }
 }
