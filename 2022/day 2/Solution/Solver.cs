@@ -16,8 +16,18 @@ public static class Solver
         { Outcome.Draw, 3},
     };
 
-    public static int SolveFor(string input)
+    public static int SolveFor(string input) =>
+        string.IsNullOrEmpty(input)
+            ? 0
+            : input
+                .Trim()
+                .Split("\n")
+                .Sum(ComputeRoundScore);
+
+    private static int ComputeRoundScore(string round)
     {
-        return 0;
+        var (player, opponent) = StrategyParser.ParseLine(round);
+        var outcome = GameResolver.Resolve(player, opponent);
+        return HandScores[player] + OutcomeScores[outcome];
     }
 }
