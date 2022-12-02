@@ -16,7 +16,7 @@ public static class Solver
         { Outcome.Draw, 3},
     };
 
-    public static int SolveFor(string input) =>
+    public static int SolveForPartOne(string input) =>
         string.IsNullOrEmpty(input)
             ? 0
             : input

@@ -3,14 +3,14 @@
 public class SolverTests
 {
     [Fact]
-    public void SolveFor_ReturnsScore_FromAdventOfCodeWebsiteExample()
+    public void SolveForPartOne_ReturnsScore_FromAdventOfCodeWebsiteExample()
     {
         // Arrange
         const string input = "A Y\nB X\nC Z\n";
         const int expectedScore = 15;
 
         // Act
-        var result = Solver.SolveFor(input);
+        var result = Solver.SolveForPartOne(input);
 
         // Assert
         result.Should().Be(expectedScore);
@@ -29,27 +29,27 @@ public class SolverTests
     [InlineData("B X", 1)] // Rock: 1, Lose: 0
     [InlineData("C Y", 2)] // Paper: 2, Lose: 0
     [InlineData("A Z", 3)] // Scissors: 3, Lose: 0
-    public void SolveFor_ReturnsExpectedScore_WhenGivenRoundInput(string input, int expectedScore)
+    public void SolveForPartOne_ReturnsExpectedScore_WhenGivenRoundInput(string input, int expectedScore)
     {
         // Arrange
         // ...
 
         // Act
-        var result = Solver.SolveFor(input);
+        var result = Solver.SolveForPartOne(input);
 
         // Assert
         result.Should().Be(expectedScore);
     }
 
     [Fact]
-    public void SolveFor_ReturnsExpectedScore_WhenGivenMultilineInput()
+    public void SolveForPartOne_ReturnsExpectedScore_WhenGivenMultilineInput()
     {
         // Arrange
         const string input = "A Y\nB X\nB X\nC Y\nB X\nA Z\nB X\nB X\nC Z\nA Z\n";
         const int expectedScore = 27;
 
         // Act
-        var result = Solver.SolveFor(input);
+        var result = Solver.SolveForPartOne(input);
 
         // Assert
         result.Should().Be(expectedScore);
