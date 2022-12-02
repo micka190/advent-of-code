@@ -13,7 +13,30 @@ public static class StrategyParser
         { "Z", Hand.Scissors },
     };
 
+    public static readonly Dictionary<string, Outcome> Outcomes = new()
+    {
+        { "X", Outcome.Lose },
+        { "Y", Outcome.Draw },
+        { "Z", Outcome.Win },
+    };
+
     public static (Hand Left, Hand Right) ParseLineAsHandAndHand(string input)
+    {
+        var tokens = GetTokens(input);
+        ValidateTokens(tokens, Hands);
+        
+        return (Left: Hands[tokens[0]], Right: Hands[tokens[1]]);
+    }
+
+    public static (Hand Left, Outcome Right) ParseLineAsHandAndOutcome(string input)
+    {
+        var tokens = GetTokens(input);
+        ValidateTokens(tokens, Outcomes);
+        
+        return (Left: Hands[tokens[0]], Right: Outcomes[tokens[1]]);
+    }
+
+    private static string[] GetTokens(string input)
     {
         var tokens = input.Trim().Split(" ");
         
@@ -23,15 +46,22 @@ public static class StrategyParser
                 $"Invalid input provided to strategy parser. Expected 2 letters with a space between. Got \"{input}\"."
             );
         }
-        else if (!Hands.ContainsKey(tokens[0]))
+
+        return tokens;
+    }
+
+    private static void ValidateTokens<T>(string[] tokens, IReadOnlyDictionary<string, T> rightSideDictionary)
+    {
+        // Left is always supposed to be a Hands key.
+        if (!Hands.ContainsKey(tokens[0]))
         {
-            throw new ArgumentOutOfRangeException(nameof(input), "Left character is unsupported.");
-        }
-        else if (!Hands.ContainsKey(tokens[1]))
-        {
-            throw new ArgumentOutOfRangeException(nameof(input), "Right character is unsupported.");
+            throw new ArgumentOutOfRangeException(nameof(tokens), "Left character is unsupported.");
         }
         
-        return (Left: Hands[tokens[0]], Right: Hands[tokens[1]]);
+        // Right might be a Hands key or an Outcomes key.
+        if (!rightSideDictionary.ContainsKey(tokens[1]))
+        {
+            throw new ArgumentOutOfRangeException(nameof(tokens), "Right character is unsupported.");
+        }
     }
 }
