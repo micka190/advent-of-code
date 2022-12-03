@@ -31,4 +31,18 @@ public class SolverTests
         // Assert
         result.Should().Be(expectedSum);
     }
+
+    [Fact]
+    public void SolveForPartTwo_ReturnsCorrectSum_ForAdventOfCodeWebsiteDemo()
+    {
+        // Arrange
+        const string input = "vJrwpWtwJgWrhcsFMMfFFhFp\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\nPmmdzqPrVvPwwTWBwg\nwMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\nttgJtRGJQctTZtZT\nCrZsJsPPZsGzwwsLwLmpwMDw\n";
+        const int expectedSum = 70;
+
+        // Act
+        var result = Solver<PriorityProvider>.SolveForPartTwo(input);
+
+        // Assert
+        result.Should().Be(expectedSum);
+    }
 }
