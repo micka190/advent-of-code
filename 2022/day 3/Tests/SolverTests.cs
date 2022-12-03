@@ -10,7 +10,7 @@ public class SolverTests
         const int expectedSum = 157;
 
         // Act
-        var result = Solver<PriorityProvider>.SolveForPartOne(input);
+        var result = Solver.SolveForPartOne(input);
 
         // Assert
         result.Should().Be(expectedSum);
@@ -26,7 +26,7 @@ public class SolverTests
         // ...
 
         // Act
-        var result = Solver<PriorityProvider>.SolveForPartOne(input);
+        var result = Solver.SolveForPartOne(input);
 
         // Assert
         result.Should().Be(expectedSum);
@@ -40,7 +40,7 @@ public class SolverTests
         const int expectedSum = 70;
 
         // Act
-        var result = Solver<PriorityProvider>.SolveForPartTwo(input);
+        var result = Solver.SolveForPartTwo(input);
 
         // Assert
         result.Should().Be(expectedSum);

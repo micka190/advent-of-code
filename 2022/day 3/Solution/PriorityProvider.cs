@@ -1,6 +1,6 @@
 ﻿namespace Solution;
 
-public class PriorityProvider : IPriorityProvider
+public class PriorityProvider
 {
     public int GetPriority(char itemType)
     {

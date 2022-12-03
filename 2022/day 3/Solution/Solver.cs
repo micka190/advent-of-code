@@ -1,7 +1,6 @@
 ﻿namespace Solution;
 
-public static class Solver<TPriorityProvider>
-    where TPriorityProvider : IPriorityProvider, new()
+public static class Solver
 {
     public static int SolveForPartOne(string input) =>
         string.IsNullOrEmpty(input)
@@ -24,7 +23,7 @@ public static class Solver<TPriorityProvider>
 
     private static int ComputeRucksackPriority(Rucksack rucksack)
     {
-        var priorityProvider = new TPriorityProvider();
+        var priorityProvider = new PriorityProvider();
         var overlappingItemTypes = rucksack.OverlappingItemTypes.ToList();
 
         if (overlappingItemTypes.Count != 1)
@@ -39,7 +38,7 @@ public static class Solver<TPriorityProvider>
 
     private static int ComputeBadgeItemTypePriority(Rucksack[] groupRucksacks)
     {
-        var priorityProvider = new TPriorityProvider();
+        var priorityProvider = new PriorityProvider();
         var rucksacks = groupRucksacks.ToList();
 
         if (rucksacks.Count <= 1)
