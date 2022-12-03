@@ -2,13 +2,13 @@
 
 public class Rucksack
 {
-    public List<string> Items { get; }
-    public IEnumerable<string> FirstCompartment => Items.GetRange(0, Items.Count / 2);
-    public IEnumerable<string> SecondCompartment => Items.GetRange(Items.Count / 2, Items.Count / 2);
-    public IEnumerable<string> OverlappingItemTypes => FirstCompartment.Intersect(SecondCompartment);
+    public List<char> Items { get; }
+    public IEnumerable<char> FirstCompartment => Items.GetRange(0, Items.Count / 2);
+    public IEnumerable<char> SecondCompartment => Items.GetRange(Items.Count / 2, Items.Count / 2);
+    public IEnumerable<char> OverlappingItemTypes => FirstCompartment.Intersect(SecondCompartment);
 
-    public Rucksack(List<string> items)
+    public Rucksack(string items)
     {
-        Items = items;
+        Items = items.ToCharArray().ToList();
     }
 }
