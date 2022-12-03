@@ -29,4 +29,19 @@ public class RucksackTests
         // Assert
         compartment.Should().BeEquivalentTo(new List<string>{"1", "2", "3"});
     }
+
+    [Fact]
+    public void OverlappingItemTypes_ReturnsItemTypesPresent_InBothCompartments()
+    {
+        // Arrange
+        const string overlapping = "A";
+        var items = new List<string> { overlapping, "B", "C", "1", "2", overlapping };
+        var rucksack = new Rucksack(items);
+
+        // Act
+        var overlappingItemTypes = rucksack.OverlappingItemTypes;
+
+        // Assert
+        overlappingItemTypes.Should().BeEquivalentTo(new List<string> { overlapping });
+    }
 }
