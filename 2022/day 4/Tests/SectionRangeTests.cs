@@ -61,4 +61,42 @@ public class SectionRangeTests
         // Assert
         result.Should().BeTrue();
     }
+
+    [Theory]
+    [InlineData("0-9", "0-9")]
+    [InlineData("0-9", "0-3")]
+    [InlineData("0-9", "7-9")]
+    [InlineData("0-9", "3-5")]
+    public void Overlaps_ReturnsTrue_WhenRangeOverlapsWithAnotherRange(string firstRange, string secondRange)
+    {
+        // Arrange
+        var first = new SectionRange(firstRange);
+        var second = new SectionRange(secondRange);
+
+        // Act
+        var firstResult = first.Overlaps(second);
+        var secondResult = second.Overlaps(first);
+
+        // Assert
+        firstResult.Should().BeTrue();
+        secondResult.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData("0-3", "4-9")] // Left *smaller* than right.
+    [InlineData("4-9", "0-3")] // Right *smaller* than left.
+    public void Overlaps_ReturnsFalse_WhenRangeDoesNotOverlapsWithAnotherRange(string firstRange, string secondRange)
+    {
+        // Arrange
+        var first = new SectionRange(firstRange);
+        var second = new SectionRange(secondRange);
+
+        // Act
+        var firstResult = first.Overlaps(second);
+        var secondResult = second.Overlaps(first);
+
+        // Assert
+        firstResult.Should().BeFalse();
+        secondResult.Should().BeFalse();
+    }
 }

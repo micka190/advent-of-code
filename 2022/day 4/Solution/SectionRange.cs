@@ -8,18 +8,17 @@ public class SectionRange
     public SectionRange(string range)
     {
         var segments = range.Split('-');
-        
+
         if (segments.Length != 2)
         {
             throw new FormatException($"Invalid range input. Expected 2 numbers separated by a dash. Got: \"{range}\"");
         }
-        
+
         Start = int.Parse(segments[0]);
         End = int.Parse(segments[1]);
     }
 
-    public bool Contains(SectionRange other)
-    {
-        return other.Start >= Start && other.End <= End;
-    }
+    public bool Contains(SectionRange other) => other.Start >= Start && other.End <= End;
+
+    public bool Overlaps(SectionRange second) => Start <= second.End && End >= second.Start;
 }
