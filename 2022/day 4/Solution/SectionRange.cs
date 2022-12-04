@@ -17,4 +17,9 @@ public class SectionRange
         Start = int.Parse(segments[0]);
         End = int.Parse(segments[1]);
     }
+
+    public bool Contains(SectionRange other)
+    {
+        return other.Start >= Start && other.End <= End;
+    }
 }

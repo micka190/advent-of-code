@@ -43,4 +43,22 @@ public class SectionRangeTests
         sectionRange.Start.Should().Be(start);
         sectionRange.End.Should().Be(end);
     }
+
+    [Theory]
+    [InlineData("0-9", "0-9")]
+    [InlineData("0-9", "0-3")]
+    [InlineData("0-9", "7-9")]
+    [InlineData("0-9", "3-5")]
+    public void Contains_ReturnsTrue_WhenRangeContainsAnotherRange(string parentRange, string childRange)
+    {
+        // Arrange
+        var parent = new SectionRange(parentRange);
+        var child = new SectionRange(childRange);
+
+        // Act
+        var result = parent.Contains(child);
+
+        // Assert
+        result.Should().BeTrue();
+    }
 }
