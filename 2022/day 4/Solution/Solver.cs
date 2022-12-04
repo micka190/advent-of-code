@@ -22,18 +22,17 @@ public static class Solver
     
     private static bool ComputeContainedSections(string line)
     {
-        var segments = line.Split(',');
-        if (segments.Length != 2)
-        {
-            throw new FormatException($"Invalid line format. Expected 2 ranges separated by a comma. Got: \"{line}\"");
-        }
-
-        var first = new SectionRange(segments[0]);
-        var second = new SectionRange(segments[1]);
+        var (first, second) = GetSectionRangesFromLine(line);
         return first.Contains(second) || second.Contains(first);
     }
 
     private static bool ComputeOverlappingSections(string line)
+    {
+        var (first, second) = GetSectionRangesFromLine(line);
+        return first.Overlaps(second);
+    }
+
+    private static (SectionRange first, SectionRange second) GetSectionRangesFromLine(string line)
     {
         var segments = line.Split(',');
         if (segments.Length != 2)
@@ -43,6 +42,7 @@ public static class Solver
 
         var first = new SectionRange(segments[0]);
         var second = new SectionRange(segments[1]);
-        return first.Overlaps(second);
+        
+        return (first, second);
     }
 }
