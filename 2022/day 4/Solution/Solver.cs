@@ -8,10 +8,10 @@ public static class Solver
             : input
                 .Trim()
                 .Split('\n')
-                .Select(ComputeOverlappingSections)
+                .Select(ComputeContainedSections)
                 .Count(overlapping => overlapping);
 
-    private static bool ComputeOverlappingSections(string line)
+    private static bool ComputeContainedSections(string line)
     {
         var segments = line.Split(',');
         if (segments.Length != 2)
