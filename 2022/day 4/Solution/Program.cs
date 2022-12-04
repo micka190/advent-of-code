@@ -12,6 +12,7 @@ public static class Program
         {
             var input = File.ReadAllText(args[0]);
             Console.WriteLine($"PART 1 - {Solver.SolveForPartOne(input)}");
+            Console.WriteLine($"PART 2 - {Solver.SolveForPartTwo(input)}");
         }
         else
         {

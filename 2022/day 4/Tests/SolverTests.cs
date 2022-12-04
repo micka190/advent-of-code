@@ -46,4 +46,22 @@ public class SolverTests
         // Assert
         result.Should().Be(expectedCount);
     }
+    
+    [Theory]
+    [InlineData("", 0)]
+    [InlineData("1-4,5-9\n0-3,5-8", 0)]
+    [InlineData("0-9,0-9\n1-2,3-5\n0-6,5-6\n", 2)]
+    [InlineData("3-5,3-4\n1-6,4-6\n0-9,9-10", 3)]
+    [InlineData("0-3,2-5\n1-5,6-8\n5-8,1-6", 2)]
+    public void SolveForPartTwo_ReturnsExpectedNumberOfOverlappingAssignments_GivenValidInput(string input, int expectedCount)
+    {
+        // Arrange
+        // ...
+
+        // Act
+        var result = Solver.SolveForPartTwo(input);
+
+        // Assert
+        result.Should().Be(expectedCount);
+    }
 }
