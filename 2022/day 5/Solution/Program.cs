@@ -13,8 +13,10 @@ public static class Program
             var input = File.ReadAllText(args[0]);
 
             var partOneSolution = Solver.SolveForPartOne(input).Aggregate("", (current, crate) => current + crate);
+            var partTwoSolution = Solver.SolveForPartTwo(input).Aggregate("", (current, crate) => current + crate);
 
             Console.WriteLine($"PART 1 - {partOneSolution}");
+            Console.WriteLine($"PART 2 - {partTwoSolution}");
         }
         else
         {
