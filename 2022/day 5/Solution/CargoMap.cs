@@ -3,7 +3,7 @@
 public class CargoMap
 {
     public List<Stack<char>> Stacks { get; } = new();
-    public List<char> TopMostCrates => Stacks.Select(stack => stack.Peek()).ToList();
+    public IEnumerable<char> TopMostCrates => Stacks.Select(stack => stack.Peek());
 
     public CargoMap(string representation)
     {
