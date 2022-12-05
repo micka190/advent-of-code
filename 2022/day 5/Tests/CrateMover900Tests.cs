@@ -36,7 +36,7 @@ public class CrateMover900Tests
     }
 
     [Fact]
-    public void MovePartOne_MovesACrate_FromOneStackToAnother()
+    public void Move_MovesACrate_FromOneStackToAnother()
     {
         // Arrange
         const string representation = "[1]        \n" +
@@ -46,7 +46,7 @@ public class CrateMover900Tests
         var map = new CrateMover9000(representation);
 
         // Act
-        map.MovePartOne(1, 1, 2);
+        map.Move(1, 1, 2);
 
         // Assert
         map.Stacks.Count.Should().Be(3);
@@ -54,7 +54,7 @@ public class CrateMover900Tests
     }
 
     [Fact]
-    public void MovePartOne_MovesMultipleCrates_FromOneStackToAnother()
+    public void Move_MovesMultipleCrates_FromOneStackToAnother()
     {
         // Arrange
         const string representation = "[1]        \n" +
@@ -65,7 +65,7 @@ public class CrateMover900Tests
         var map = new CrateMover9000(representation);
 
         // Act
-        map.MovePartOne(2, 1, 3);
+        map.Move(2, 1, 3);
 
         // Assert
         map.Stacks.Count.Should().Be(3);

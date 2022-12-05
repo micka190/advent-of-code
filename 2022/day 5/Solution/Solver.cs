@@ -10,7 +10,7 @@ public static class Solver
 
         foreach (var instruction in instructionReader.ReadInstructions())
         {
-            cargoMap.MovePartOne(instruction.Count, instruction.From, instruction.To);
+            cargoMap.Move(instruction.Count, instruction.From, instruction.To);
         }
 
         return cargoMap.TopMostCrates;
