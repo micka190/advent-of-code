@@ -2,7 +2,7 @@
 
 public class InputParser
 {
-    public readonly string CargoMap;
+    public readonly string CargoMapRepresentation;
     public readonly string Instructions;
     
     public InputParser(string input)
@@ -13,7 +13,7 @@ public class InputParser
             throw new FormatException($"Invalid input. Expected map and instructions to be divided by an empty line. Got {input}");
         }
 
-        CargoMap = segments[0];
+        CargoMapRepresentation = segments[0];
         Instructions = segments[1];
     }
 }

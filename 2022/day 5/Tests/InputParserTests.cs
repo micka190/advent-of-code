@@ -14,7 +14,7 @@ public class InputParserTests
         var parser = new InputParser(input);
 
         // Assert
-        parser.CargoMap.Should().Be(cargoMap);
+        parser.CargoMapRepresentation.Should().Be(cargoMap);
         parser.Instructions.Should().Be(instructions);
     }
 }
