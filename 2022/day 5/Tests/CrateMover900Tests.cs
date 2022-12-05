@@ -1,6 +1,6 @@
 ﻿namespace Tests;
 
-public class CargoMapTests
+public class CrateMover900Tests
 {
     [Fact]
     public void Constructor_Parses_StringRepresentation()
@@ -11,7 +11,7 @@ public class CargoMapTests
                                       " 1   2   3 ";
 
         // Act
-        var map = new CargoMap(representation);
+        var map = new CrateMover9000(representation);
 
         // Assert
         map.Stacks.Count.Should().Be(3);
@@ -28,7 +28,7 @@ public class CargoMapTests
                                       " 1   2   3 ";
 
         // Act
-        var map = new CargoMap(representation);
+        var map = new CrateMover9000(representation);
 
         // Assert
         map.Stacks.Count.Should().Be(3);
@@ -43,7 +43,7 @@ public class CargoMapTests
                                       "[x]     [z]\n" +
                                       "[a] [b] [c]\n" +
                                       " 1   2   3 ";
-        var map = new CargoMap(representation);
+        var map = new CrateMover9000(representation);
 
         // Act
         map.Move(1, 1, 2);
@@ -62,7 +62,7 @@ public class CargoMapTests
                                       "[a] [b] [c]\n" +
                                       " 1   2   3 ";
 
-        var map = new CargoMap(representation);
+        var map = new CrateMover9000(representation);
 
         // Act
         map.Move(2, 1, 3);

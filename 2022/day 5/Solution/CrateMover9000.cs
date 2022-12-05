@@ -1,11 +1,11 @@
 ﻿namespace Solution;
 
-public class CargoMap
+public class CrateMover9000
 {
     public List<Stack<char>> Stacks { get; } = new();
     public IEnumerable<char> TopMostCrates => Stacks.Select(stack => stack.Peek());
 
-    public CargoMap(string representation)
+    public CrateMover9000(string representation)
     {
         var lines = representation.Split('\n');
         var lastLine = lines.Last().Trim();
