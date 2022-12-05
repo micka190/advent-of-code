@@ -11,11 +11,11 @@ public class CrateMover900Tests
                                       " 1   2   3 ";
 
         // Act
-        var map = new CrateMover9000(representation);
+        var crateMover = new CrateMover9000(representation);
 
         // Assert
-        map.Stacks.Count.Should().Be(3);
-        map.TopMostCrates.Should().BeEquivalentTo(new List<char> { 'x', 'y', 'z' });
+        crateMover.Stacks.Count.Should().Be(3);
+        crateMover.TopMostCrates.Should().BeEquivalentTo(new List<char> { 'x', 'y', 'z' });
     }
 
     [Fact]
@@ -28,11 +28,11 @@ public class CrateMover900Tests
                                       " 1   2   3 ";
 
         // Act
-        var map = new CrateMover9000(representation);
+        var crateMover = new CrateMover9000(representation);
 
         // Assert
-        map.Stacks.Count.Should().Be(3);
-        map.TopMostCrates.Should().BeEquivalentTo(new List<char> { '1', 'b', 'z' });
+        crateMover.Stacks.Count.Should().Be(3);
+        crateMover.TopMostCrates.Should().BeEquivalentTo(new List<char> { '1', 'b', 'z' });
     }
 
     [Fact]
@@ -43,14 +43,14 @@ public class CrateMover900Tests
                                       "[x]     [z]\n" +
                                       "[a] [b] [c]\n" +
                                       " 1   2   3 ";
-        var map = new CrateMover9000(representation);
+        var crateMover = new CrateMover9000(representation);
 
         // Act
-        map.Move(1, 1, 2);
+        crateMover.Move(1, 1, 2);
 
         // Assert
-        map.Stacks.Count.Should().Be(3);
-        map.TopMostCrates.Should().BeEquivalentTo(new List<char> { 'x', '1', 'z' });
+        crateMover.Stacks.Count.Should().Be(3);
+        crateMover.TopMostCrates.Should().BeEquivalentTo(new List<char> { 'x', '1', 'z' });
     }
 
     [Fact]
@@ -62,16 +62,16 @@ public class CrateMover900Tests
                                       "[a] [b] [c]\n" +
                                       " 1   2   3 ";
 
-        var map = new CrateMover9000(representation);
+        var crateMover = new CrateMover9000(representation);
 
         // Act
-        map.Move(2, 1, 3);
+        crateMover.Move(2, 1, 3);
 
         // Assert
-        map.Stacks.Count.Should().Be(3);
-        map.TopMostCrates.Should().BeEquivalentTo(new List<char> { 'a', 'b', 'x' });
-        map.Stacks[0].Should().Equal('a');
-        map.Stacks[1].Should().Equal('b');
-        map.Stacks[2].Should().Equal('x', '1', 'z', 'c');
+        crateMover.Stacks.Count.Should().Be(3);
+        crateMover.TopMostCrates.Should().BeEquivalentTo(new List<char> { 'a', 'b', 'x' });
+        crateMover.Stacks[0].Should().Equal('a');
+        crateMover.Stacks[1].Should().Equal('b');
+        crateMover.Stacks[2].Should().Equal('x', '1', 'z', 'c');
     }
 }
