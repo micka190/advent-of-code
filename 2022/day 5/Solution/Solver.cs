@@ -7,10 +7,11 @@ public static class Solver
         var inputParser = new InputParser(input);
         var cargoMap = new CargoMap(inputParser.CargoMapRepresentation);
         var instructionReader = new InstructionReader(inputParser.Instructions);
+        var mover = new CrateMover9000(cargoMap);
 
         foreach (var instruction in instructionReader.ReadInstructions())
         {
-            cargoMap.Move(instruction.Count, instruction.From, instruction.To);
+            mover.Move(instruction.Count, instruction.From, instruction.To);
         }
 
         return cargoMap.TopMostCrates;
