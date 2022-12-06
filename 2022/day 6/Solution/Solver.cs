@@ -4,8 +4,7 @@ public class Solver
 {
     public int SolveForPartOne(string input)
     {
-        const int chunkSize = 4;
         var parser = new SignalParser();
-        return parser.FindStart(input, chunkSize);
+        return parser.FindUniqueChunk(input, SignalParser.DefaultStartChunkSize);
     }
 }

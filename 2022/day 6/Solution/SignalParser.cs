@@ -2,7 +2,10 @@
 
 public class SignalParser
 {
-    public int FindStart(string input, int chunkSize)
+    public static int DefaultStartChunkSize { get; set; } = 4;
+    public static int DefaultMessageChunkSize { get; set; } = 14;
+
+    public int FindUniqueChunk(string input, int chunkSize)
     {
         if (chunkSize > input.Length)
         {
