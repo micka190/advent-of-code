@@ -16,6 +16,7 @@ public static class Program
             var solver = new Solver(creator);
             
             Console.WriteLine($"PART 1 - {solver.SolveForPartOne(input)}");
+            Console.WriteLine($"PART 2 - {solver.SolveForPartTwo(input)}");
         }
         else
         {
