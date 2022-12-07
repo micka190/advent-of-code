@@ -2,7 +2,9 @@
 
 public class TerminalOutputParser
 {
-    private const string ChangeDirectoryCommandString = "$ cd ";
+    private const string CommandPrefix = "$";
+    private const string ChangeDirectoryCommandString = $"{CommandPrefix} cd ";
+    private const string ListDirectoryCommandString = $"{CommandPrefix} ls";
 
     public List<ITerminalCommand> Parse(string input)
     {
@@ -10,34 +12,39 @@ public class TerminalOutputParser
 
         if (!string.IsNullOrEmpty(input))
         {
-            var lines = input.Trim().Split('\n');
-            
-            for (var i = 0; i < lines.Length; ++i)
+            foreach (var line in GetFormattedLines(input))
             {
-                var line = lines[i].Trim();
-                
-                if (line.StartsWith(ChangeDirectoryCommandString))
+                if (LineIsCommand(line))
                 {
-                    var args = line[ChangeDirectoryCommandString.Length..];
-                    commands.Add(new ChangeDirectoryCommand(args));
+                    commands.Add(ProcessCommand(line));
                 }
-                else if (line == "$ ls")
+                else
                 {
-                    var output = new List<string>();
-
-                    do
-                    {
-                        ++i;
-                        line = lines[i].Trim();
-                        output.Add(line);
-
-                    } while (i < lines.Length - 1 && !lines[i + 1].Trim().StartsWith('$'));
-                    
-                    commands.Add(new ListCommand(output));
+                    commands.Last().Output.Add(line);
                 }
             }
         }
-        
+
         return commands;
     }
+
+    private static ITerminalCommand ProcessCommand(string line)
+    {
+        if (line.StartsWith(ChangeDirectoryCommandString))
+        {
+            var args = line[ChangeDirectoryCommandString.Length..];
+            return new ChangeDirectoryCommand(args);
+        }
+
+        if (line.StartsWith(ListDirectoryCommandString))
+        {
+            return new ListCommand();
+        }
+        
+        throw new ArgumentOutOfRangeException(nameof(line), "Unsupported command");
+    }
+
+    private static IEnumerable<string> GetFormattedLines(string input) => input.Trim().Split('\n');
+
+    private static bool LineIsCommand(string line) => line.StartsWith(CommandPrefix);
 }
