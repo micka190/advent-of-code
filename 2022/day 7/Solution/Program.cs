@@ -11,7 +11,11 @@ public static class Program
         else if (File.Exists(args[0]))
         {
             var input = File.ReadAllText(args[0]);
-            // TODO: Use input to solve problem.
+            var parser = new TerminalOutputParser();
+            var creator = new FileSystemCreator(parser);
+            var solver = new Solver(creator);
+            
+            Console.WriteLine($"PART 1 - {solver.SolveForPartOne(input)}");
         }
         else
         {
