@@ -21,4 +21,24 @@ public class SolverTests
         // Assert
         result.Should().Be(expectedNumberOfTrees);
     }
+    
+    [Fact]
+    public void SolveForPartTwo_ReturnsExpectedScenicScore_GivenAdventOfCodeExampleInput()
+    {
+        // Arrange
+        const string input = "30373\n" +
+                             "25512\n" +
+                             "65332\n" +
+                             "33549\n" +
+                             "35390\n";
+        const int expectedScenicScore = 8;
+        var parser = new GridParser();
+        var solver = new Solver(parser);
+
+        // Act
+        var result = solver.SolveForPartTwo(input);
+
+        // Assert
+        result.Should().Be(expectedScenicScore);
+    }
 }

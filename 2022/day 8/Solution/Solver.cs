@@ -11,4 +11,11 @@ public class Solver
         var grid = new TreeGrid(inputGrid);
         return grid.GetVisibleTrees();
     }
+
+    public int SolveForPartTwo(string input)
+    {
+        var inputGrid = _parser.Parse(input);
+        var grid = new TreeGrid(inputGrid);
+        return grid.GetHighestScenicScore();
+    }
 }
