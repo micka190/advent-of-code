@@ -31,6 +31,112 @@ public class TreeGrid
         return count;
     }
 
+    public int GetHighestScenicScore()
+    {
+        var scores = GetScenicScores();
+        
+        var highestScore = 0;
+        for (var row = 0; row < _rows; ++row)
+        {
+            for (var col = 0; col < _cols; ++col)
+            {
+                var score = scores[row, col];
+                if (score > highestScore)
+                {
+                    highestScore = score;
+                }
+            }
+        }
+
+        return highestScore;
+    }
+
+    private int[,] GetScenicScores()
+    {
+        var scores = new int[_rows, _cols];
+
+        for (var row = RowsEdgeStart; row < _rowsEdgeEnd; ++row)
+        {
+            for (var col = ColsEdgeStart; col < _colsEdgeEnd; ++col)
+            {
+                scores[row, col] = GetScenicScore(row, col);
+            }
+        }
+        
+        return scores;
+    }
+
+    private int GetScenicScore(int row, int col)
+    {
+        var left = 0;
+        var right = 0;
+        var top = 0;
+        var bottom = 0;
+        
+        var currentTree = _trees[row, col];
+        
+        for (var c = col - 1; c >= 0; --c)
+        {
+            if (c == 0 || _trees[row, c] == currentTree)
+            {
+                left++;
+                break;
+            }
+            
+            if (_trees[row, c] < currentTree)
+            {
+                left++;
+            }
+        }
+        
+        for (var c = col + 1; c < _cols; ++c)
+        {
+            if (c == _cols - 1 || _trees[row, c] == currentTree)
+            {
+                right++;
+                break;
+            }
+            
+            if (_trees[row, c] < currentTree)
+            {
+                
+                right++;
+            }
+        }
+        
+        for (var r = row - 1; r >= 0; --r)
+        {
+            if (r == 0 || _trees[r, col] == currentTree)
+            {
+                top++;
+                break;
+            }
+            
+            if (_trees[r, col] < currentTree)
+            {
+                top++;
+            }
+        }
+        
+        
+        for (var r = row + 1; r < _rows; ++r)
+        {
+            if (r == _rows - 1 || _trees[r, col] == currentTree)
+            {
+                bottom++;
+                break;
+            }
+            
+            if (_trees[r, col] < currentTree)
+            {
+                bottom++;
+            }
+        }
+        
+
+        return left * right * top * bottom;
+    }
+
     private bool[,] GetVisibilityMask()
     {
         var mask = new bool[_rows, _cols];
