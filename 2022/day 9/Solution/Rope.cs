@@ -4,27 +4,26 @@ namespace Solution;
 
 public class Rope
 {
-    private Point Head { get; set; }
-    private Point Tail { get; set; }
+    private readonly List<Point> _knots;
 
     public readonly HashSet<Point> UniqueTailPositions;
 
-    public Rope()
+    public Rope(int numberOfKnots = 2)
     {
-        Head = new Point();
-        Tail = new Point();
-        UniqueTailPositions = new HashSet<Point> { Tail };
+        _knots = Enumerable.Range(0, numberOfKnots).Select(_ => new Point()).ToList();
+        UniqueTailPositions = new HashSet<Point> { _knots.Last() };
     }
 
     public void PerformMotion(Motion motion)
     {
         for (var i = 0; i < motion.Steps; ++i)
         {
-            Head = Move(Head, motion.Direction);
+            _knots[0] = Move(_knots[0], motion.Direction);
 
-            if (!KnotsTouching())
+            if (!KnotsTouching(_knots[0], _knots[1]))
             {
-                FollowHeadWithTail(motion.Direction);
+                _knots[1] = Follow(_knots[0], _knots[1], motion.Direction);
+                UniqueTailPositions.Add(_knots[1]);
             }
         }
     }
@@ -39,46 +38,46 @@ public class Rope
             _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, "Unsupported direction")
         };
 
-    private bool KnotsTouching()
+    private bool KnotsTouching(Point head, Point tail)
     {
         // Overlapping counts as touching.
-        var overlapping = Head == Tail;
+        var overlapping = head == tail;
 
-        var deltaX = Math.Abs(Head.X - Tail.X);
-        var deltaY = Math.Abs(Head.Y - Tail.Y);
+        var deltaX = Math.Abs(head.X - tail.X);
+        var deltaY = Math.Abs(head.Y - tail.Y);
 
         var touchingX = deltaX == 1 && deltaY == 0;
         var touchingY = deltaY == 1 && deltaX == 0;
         var touchingDiagonally = deltaX == 1 && deltaY == 1;
-
+ 
         return overlapping || touchingX || touchingY || touchingDiagonally;
     }
 
-    private void FollowHeadWithTail(Direction lastHeadDirection)
+    private Point Follow(Point head, Point tail, Direction lastHeadDirection)
     {
         // This method is only called when Head and Tail are NOT touching.
         // If BOTH axis are not equal, then Head and Tail were touching diagonally, and Head has just moved away from Tail.
         // When this happens, Tail must move diagonally towards Head (they end up sharing the same X or Y value afterwards).
         
-        var requiresDiagonalMovement = Head.X != Tail.X && Head.Y != Tail.Y;
+        var requiresDiagonalMovement = head.X != tail.X && head.Y != tail.Y;
 
         var headMovedHorizontally = lastHeadDirection is Direction.Right or Direction.Left;
         var headMovedVertically = lastHeadDirection is Direction.Up or Direction.Down;
 
-        Tail = Move(Tail, lastHeadDirection);
+        var nextTail = Move(tail, lastHeadDirection);
 
         if (requiresDiagonalMovement)
         {
             if (headMovedHorizontally)
             {
-                Tail = Tail with { Y = Head.Y };
+                nextTail = nextTail with { Y = head.Y };
             }
             else if (headMovedVertically)
             {
-                Tail = Tail with { X = Head.X };
+                nextTail = nextTail with { X = head.X };
             }
         }
 
-        UniqueTailPositions.Add(Tail);
+        return nextTail;
     }
 }
