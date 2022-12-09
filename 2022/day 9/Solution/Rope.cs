@@ -16,7 +16,7 @@ public class Rope
         }
 
         _knots = Enumerable.Range(0, numberOfKnots).Select(_ => new Point()).ToList();
-        UniqueTailPositions = new HashSet<Point> { _knots.Last() };
+        UniqueTailPositions = new HashSet<Point> { _knots[^1] };
     }
 
     public void PerformMotion(Motion motion)
@@ -24,18 +24,20 @@ public class Rope
         for (var i = 0; i < motion.Steps; ++i)
         {
             var headIndex = 0;
+
             _knots[headIndex] = Move(_knots[headIndex], motion.Direction);
 
             for (var tailIndex = 1; tailIndex < _knots.Count; ++tailIndex)
             {
                 headIndex = tailIndex - 1;
-                
+
                 if (!KnotsTouching(_knots[headIndex], _knots[tailIndex]))
                 {
-                    _knots[tailIndex] = Follow(_knots[headIndex], _knots[tailIndex], motion.Direction);
-                    UniqueTailPositions.Add(_knots[tailIndex]);
+                    _knots[tailIndex] = Follow(_knots[headIndex], _knots[tailIndex]);
                 }
             }
+
+            UniqueTailPositions.Add(_knots[^1]);
         }
     }
 
@@ -49,7 +51,7 @@ public class Rope
             _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, "Unsupported direction")
         };
 
-    private bool KnotsTouching(Point head, Point tail)
+    private static bool KnotsTouching(Point head, Point tail)
     {
         // Overlapping counts as touching.
         var overlapping = head == tail;
@@ -64,31 +66,20 @@ public class Rope
         return overlapping || touchingX || touchingY || touchingDiagonally;
     }
 
-    private Point Follow(Point head, Point tail, Direction lastHeadDirection)
+    private static Point Follow(Point head, Point tail)
     {
-        // This method is only called when Head and Tail are NOT touching.
-        // If BOTH axis are not equal, then Head and Tail were touching diagonally, and Head has just moved away from Tail.
-        // When this happens, Tail must move diagonally towards Head (they end up sharing the same X or Y value afterwards).
-
-        var requiresDiagonalMovement = head.X != tail.X && head.Y != tail.Y;
-
-        var headMovedHorizontally = lastHeadDirection is Direction.Right or Direction.Left;
-        var headMovedVertically = lastHeadDirection is Direction.Up or Direction.Down;
-
-        var nextTail = Move(tail, lastHeadDirection);
-
-        if (requiresDiagonalMovement)
+        var nextTail = head.X switch
         {
-            if (headMovedHorizontally)
-            {
-                nextTail = nextTail with { Y = head.Y };
-            }
-            else if (headMovedVertically)
-            {
-                nextTail = nextTail with { X = head.X };
-            }
-        }
-
-        return nextTail;
+            _ when head.X > tail.X => tail with { X = tail.X + 1 },
+            _ when head.X < tail.X => tail with { X = tail.X - 1 },
+            _ => tail,
+        };
+        
+        return head.Y switch
+        {
+            _ when head.Y > nextTail.Y => nextTail with { Y = nextTail.Y + 1 },
+            _ when head.Y < nextTail.Y => nextTail with { Y = nextTail.Y - 1 },
+            _ => nextTail,
+        };
     }
 }

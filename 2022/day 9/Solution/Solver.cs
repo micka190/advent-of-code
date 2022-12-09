@@ -3,22 +3,34 @@
 public class Solver
 {
     private readonly MotionParser _parser;
-    private readonly Rope _rope;
 
-    public Solver(MotionParser parser, Rope rope)
+    public Solver(MotionParser parser)
     {
         _parser = parser;
-        _rope = rope;
     }
 
     public int SolveForPartOne(string input)
     {
+        var rope = new Rope();
         var motions = _parser.Parse(input);
         foreach (var motion in motions)
         {
-            _rope.PerformMotion(motion);
+            rope.PerformMotion(motion);
         }
 
-        return _rope.UniqueTailPositions.Count;
+        return rope.UniqueTailPositions.Count;
+    }
+    
+    public int SolveForPartTwo(string input)
+    {
+        const int numberOfKnots = 10;
+        var rope = new Rope(numberOfKnots);
+        var motions = _parser.Parse(input);
+        foreach (var motion in motions)
+        {
+            rope.PerformMotion(motion);
+        }
+
+        return rope.UniqueTailPositions.Count;
     }
 }

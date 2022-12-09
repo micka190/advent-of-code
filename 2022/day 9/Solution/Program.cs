@@ -12,10 +12,10 @@ public static class Program
         {
             var input = File.ReadAllText(args[0]);
             var parser = new MotionParser();
-            var rope = new Rope();
-            var solver = new Solver(parser, rope);
+            var solver = new Solver(parser);
             
             Console.WriteLine($"PART 1 - {solver.SolveForPartOne(input)}");
+            Console.WriteLine($"PART 2 - {solver.SolveForPartTwo(input)}");
         }
         else
         {
