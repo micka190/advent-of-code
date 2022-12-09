@@ -10,6 +10,11 @@ public class Rope
 
     public Rope(int numberOfKnots = 2)
     {
+        if (numberOfKnots < 2)
+        {
+            throw new ArgumentException("Must have at least 2 knots in Rope.", nameof(numberOfKnots));
+        }
+
         _knots = Enumerable.Range(0, numberOfKnots).Select(_ => new Point()).ToList();
         UniqueTailPositions = new HashSet<Point> { _knots.Last() };
     }
@@ -18,12 +23,18 @@ public class Rope
     {
         for (var i = 0; i < motion.Steps; ++i)
         {
-            _knots[0] = Move(_knots[0], motion.Direction);
+            var headIndex = 0;
+            _knots[headIndex] = Move(_knots[headIndex], motion.Direction);
 
-            if (!KnotsTouching(_knots[0], _knots[1]))
+            for (var tailIndex = 1; tailIndex < _knots.Count; ++tailIndex)
             {
-                _knots[1] = Follow(_knots[0], _knots[1], motion.Direction);
-                UniqueTailPositions.Add(_knots[1]);
+                headIndex = tailIndex - 1;
+                
+                if (!KnotsTouching(_knots[headIndex], _knots[tailIndex]))
+                {
+                    _knots[tailIndex] = Follow(_knots[headIndex], _knots[tailIndex], motion.Direction);
+                    UniqueTailPositions.Add(_knots[tailIndex]);
+                }
             }
         }
     }
@@ -49,7 +60,7 @@ public class Rope
         var touchingX = deltaX == 1 && deltaY == 0;
         var touchingY = deltaY == 1 && deltaX == 0;
         var touchingDiagonally = deltaX == 1 && deltaY == 1;
- 
+
         return overlapping || touchingX || touchingY || touchingDiagonally;
     }
 
@@ -58,7 +69,7 @@ public class Rope
         // This method is only called when Head and Tail are NOT touching.
         // If BOTH axis are not equal, then Head and Tail were touching diagonally, and Head has just moved away from Tail.
         // When this happens, Tail must move diagonally towards Head (they end up sharing the same X or Y value afterwards).
-        
+
         var requiresDiagonalMovement = head.X != tail.X && head.Y != tail.Y;
 
         var headMovedHorizontally = lastHeadDirection is Direction.Right or Direction.Left;
