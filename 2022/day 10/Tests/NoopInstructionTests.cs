@@ -15,10 +15,7 @@ public class NoopInstructionTests
         // Assert
         instruction.IsDone.Should().BeTrue();
         cpu.Registers[Register.X].Should().Be(Cpu.StartingX);
-        cpu.Cycles[Register.X].Should().HaveCount(2);
-        foreach (var cycle in cpu.Cycles[Register.X])
-        {
-            cycle.Should().Be(Cpu.StartingX);
-        }
+        cpu.Cycles[Register.X].Should().HaveCount(1);
+        cpu.Cycles[Register.X][0].Should().Be(Cpu.StartingX);
     }
 }

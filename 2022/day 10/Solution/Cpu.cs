@@ -11,7 +11,7 @@ public class Cpu
 
     public readonly Dictionary<Register, List<int>> Cycles = new()
     {
-        { Register.X, new List<int> { StartingX } }
+        { Register.X, new List<int>() }
     };
 
     public void Tick()
