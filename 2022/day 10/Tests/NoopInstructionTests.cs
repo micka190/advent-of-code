@@ -13,7 +13,6 @@ public class NoopInstructionTests
         instruction.Perform(cpu);
 
         // Assert
-        instruction.IsDone.Should().BeTrue();
         cpu.Registers[Register.X].Should().Be(Cpu.StartingX);
         cpu.Cycles[Register.X].Should().HaveCount(1);
         cpu.Cycles[Register.X][0].Should().Be(Cpu.StartingX);

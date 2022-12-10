@@ -2,8 +2,6 @@
 
 public class RegisterAddInstruction : ICpuInstruction
 {
-    public bool IsDone { get; private set; }
-
     public readonly Register TargetRegister;
     public readonly int Value;
     
@@ -18,6 +16,5 @@ public class RegisterAddInstruction : ICpuInstruction
         cpu.Tick();
         cpu.Tick();
         cpu.Registers[TargetRegister] += Value;
-        IsDone = true;
     }
 }

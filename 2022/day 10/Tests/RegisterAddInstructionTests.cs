@@ -16,7 +16,6 @@ public class RegisterAddInstructionTests
         instruction.Perform(cpu);
 
         // Assert
-        instruction.IsDone.Should().BeTrue();
         cpu.Cycles[Register.X].Should().HaveCount(2);
         cpu.Cycles[Register.X][0].Should().Be(Cpu.StartingX);
         cpu.Cycles[Register.X][1].Should().Be(Cpu.StartingX);
