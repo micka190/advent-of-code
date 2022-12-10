@@ -26,4 +26,21 @@ public class Solver
 
         return signalStrength;
     }
+
+    public string SolveForPartTwo(string input)
+    {
+        var instructions = _parser.Parse(input);
+        var cpu = new Cpu();
+        var crt = new Crt();
+
+        // NOTE: Using "#" and "." can make the output harder to read on some terminals (like Rider's),
+        // so we're changing them to "█" and " " instead.
+        crt.Blank = " ";
+        crt.Solid = "█";
+
+        cpu.PerformInstructions(instructions);
+        var image = crt.ImageFromCycles(cpu, Register.X);
+
+        return image;
+    }
 }
