@@ -21,4 +21,12 @@ public class Cpu
             cycle.Add(Registers[register]);
         }
     }
+
+    public void PerformInstructions(IEnumerable<ICpuInstruction> instructions)
+    {
+        foreach (var instruction in instructions)
+        {
+            instruction.Perform(this);
+        }
+    }
 }
