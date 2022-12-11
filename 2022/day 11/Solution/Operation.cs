@@ -38,10 +38,10 @@ public class Operation
         Right = segments[2];
     }
 
-    public int Perform(int itemWorryLevel)
+    public long Perform(long itemWorryLevel)
     {
-        var left = Left == "old" ? itemWorryLevel : int.Parse(Left);
-        var right = Right == "old" ? itemWorryLevel : int.Parse(Right);
+        var left = Left == "old" ? itemWorryLevel : long.Parse(Left);
+        var right = Right == "old" ? itemWorryLevel : long.Parse(Right);
         return Operator switch
         {
             "*" => left * right,

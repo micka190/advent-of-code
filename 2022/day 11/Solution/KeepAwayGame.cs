@@ -4,9 +4,9 @@ public class KeepAwayGame
 {
     public readonly List<Monkey> Monkeys = new();
 
-    private readonly Func<int, int> _stressManagementStrategy;
+    private readonly Func<long, long> _stressManagementStrategy;
 
-    public KeepAwayGame(Func<int, int> stressManagementStrategy) => _stressManagementStrategy = stressManagementStrategy;
+    public KeepAwayGame(Func<long, long> stressManagementStrategy) => _stressManagementStrategy = stressManagementStrategy;
 
     public void DoRound()
     {
@@ -15,12 +15,15 @@ public class KeepAwayGame
             while (monkey.Items.Count > 0)
             {
                 monkey.InspectCount++;
+
+                var worryLevel = monkey.Operation.Perform(monkey.Items[0]);
                 
-                var item = monkey.Operation.Perform(monkey.Items[0]) / 3;
-                var target = monkey.ItemTest.Perform(item);
+                worryLevel = _stressManagementStrategy(worryLevel);
+                
+                var targetIndex = monkey.ItemTest.Perform(worryLevel);
                 
                 monkey.Items.RemoveAt(0);
-                Monkeys[target].Items.Add(item);
+                Monkeys[targetIndex].Items.Add(worryLevel);
             }
         }
     }

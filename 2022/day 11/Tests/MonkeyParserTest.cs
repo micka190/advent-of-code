@@ -38,25 +38,25 @@ public class MonkeyParserTest
         {
             new()
             {
-                Items = new List<int> { 79, 98 },
+                Items = new List<long> { 79, 98 },
                 Operation = new Operation("old * 19"),
                 ItemTest = new ItemTest(23, 2, 3),
             },
             new()
             {
-                Items = new List<int> { 54, 65, 75, 74 },
+                Items = new List<long> { 54, 65, 75, 74 },
                 Operation = new Operation("old + 6"),
                 ItemTest = new ItemTest(19, 2, 0),
             },
             new()
             {
-                Items = new List<int> { 79, 60, 97 },
+                Items = new List<long> { 79, 60, 97 },
                 Operation = new Operation("old * old"),
                 ItemTest = new ItemTest(13, 1, 3),
             },
             new()
             {
-                Items = new List<int> { 74 },
+                Items = new List<long> { 74 },
                 Operation = new Operation("old + 3"),
                 ItemTest = new ItemTest(17, 0, 1),
             },

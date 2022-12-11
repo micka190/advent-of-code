@@ -13,7 +13,7 @@ public class ItemTest
         FalseTarget = falseTarget;
     }
 
-    public int Perform(int itemWorryLevel) =>
+    public int Perform(long itemWorryLevel) =>
         itemWorryLevel % Divisor == 0 
             ? TrueTarget 
             : FalseTarget;

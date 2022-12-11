@@ -35,11 +35,11 @@ public class MonkeyParser
         };
     }
 
-    private static List<int> ParseStartingItems(string line)
+    private static List<long> ParseStartingItems(string line)
     {
         ValidatePrefix(line, StartingItemsPrefix);
         var items = line[StartingItemsPrefix.Length..].Split(", ");
-        return items.Select(int.Parse).ToList();
+        return items.Select(long.Parse).ToList();
     }
 
     private static Operation ParseOperation(string line)

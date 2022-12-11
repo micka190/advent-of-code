@@ -3,17 +3,31 @@
 public class Solver
 {
     private readonly MonkeyParser _parser;
-
-
+    
     public Solver(MonkeyParser parser) => _parser = parser;
 
-    public int SolveForPartOne(string input)
+    public long SolveForPartOne(string input)
     {
         const int numberOfRounds = 20;
-        var stressManagementStrategy = (int itemWorryValue) => itemWorryValue / 3; 
-        
-        var game = new KeepAwayGame(stressManagementStrategy);
         var monkeys = _parser.Parse(input);
+        var stressManagementStrategy = (long itemWorryValue) => itemWorryValue / 3;
+        
+        return Solve(numberOfRounds, monkeys, stressManagementStrategy);
+    }
+
+    public long SolveForPartTwo(string input)
+    {
+        const int numberOfRounds = 10000;
+        var monkeys = _parser.Parse(input);
+        var leastCommonMultiple = monkeys.Select(monkey => monkey.ItemTest.Divisor).Aggregate((a, b) => a * b);
+        var stressManagementStrategy = (long itemWorryValue) => itemWorryValue % leastCommonMultiple;
+
+        return Solve(numberOfRounds, monkeys, stressManagementStrategy);
+    }
+
+    private static long Solve(int numberOfRounds, List<Monkey> monkeys, Func<long, long> stressStrategy)
+    {
+        var game = new KeepAwayGame(stressStrategy);
         game.Monkeys.AddRange(monkeys);
 
         for (var i = 0; i < numberOfRounds; ++i)
@@ -21,12 +35,10 @@ public class Solver
             game.DoRound();
         }
 
-        var topActiveMonkeyCounts = game.Monkeys
+        return game.Monkeys
             .OrderByDescending(monkey => monkey.InspectCount)
             .Take(2)
-            .Select(monkey => monkey.InspectCount)
-            .ToArray();
-
-        return topActiveMonkeyCounts[0] * topActiveMonkeyCounts[1];
+            .Select(monkey => (long)monkey.InspectCount)
+            .Aggregate((a, b) => a * b);
     }
 }
