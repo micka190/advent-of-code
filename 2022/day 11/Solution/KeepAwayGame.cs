@@ -3,7 +3,10 @@
 public class KeepAwayGame
 {
     public readonly List<Monkey> Monkeys = new();
-    
+
+    private readonly Func<int, int> _stressManagementStrategy;
+
+    public KeepAwayGame(Func<int, int> stressManagementStrategy) => _stressManagementStrategy = stressManagementStrategy;
 
     public void DoRound()
     {

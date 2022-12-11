@@ -6,7 +6,8 @@ public class KeepAwayGameTests
     public void DoRound_CausesMonkeysToExchangeItems_GivenAdventOfCodeExample()
     {
         // Arrange
-        var game = new KeepAwayGame();
+        var defaultStressManagementStrategy = (int itemWorryLevel) => itemWorryLevel / 3;
+        var game = new KeepAwayGame(defaultStressManagementStrategy);
         game.Monkeys.Add(new()
         {
             Items = new List<int> { 79, 98 },
@@ -46,7 +47,8 @@ public class KeepAwayGameTests
     public void DoRound_TracksHowManyTimesMonkeysInspectItems_GivenAdventOfCodeExample()
     {
         // Arrange
-        var game = new KeepAwayGame();
+        var defaultStressManagementStrategy = (int itemWorryLevel) => itemWorryLevel / 3;
+        var game = new KeepAwayGame(defaultStressManagementStrategy);
         game.Monkeys.Add(new()
         {
             Items = new List<int> { 79, 98 },

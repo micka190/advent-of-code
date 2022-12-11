@@ -10,8 +10,10 @@ public class Solver
     public int SolveForPartOne(string input)
     {
         const int numberOfRounds = 20;
+        var stressManagementStrategy = (int itemWorryValue) => itemWorryValue / 3; 
+        
+        var game = new KeepAwayGame(stressManagementStrategy);
         var monkeys = _parser.Parse(input);
-        var game = new KeepAwayGame();
         game.Monkeys.AddRange(monkeys);
 
         for (var i = 0; i < numberOfRounds; ++i)
