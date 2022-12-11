@@ -6,4 +6,6 @@ public class Monkey
 
     public Operation Operation { get; init; } = new("0 + 0");
     public ItemTest ItemTest { get; init; } = new(0, 0, 0);
+
+    public int InspectCount { get; set; }
 }

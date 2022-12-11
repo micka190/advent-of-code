@@ -3,6 +3,7 @@
 public class KeepAwayGame
 {
     public readonly List<Monkey> Monkeys = new();
+    
 
     public void DoRound()
     {
@@ -10,6 +11,8 @@ public class KeepAwayGame
         {
             while (monkey.Items.Count > 0)
             {
+                monkey.InspectCount++;
+                
                 var item = monkey.Operation.Perform(monkey.Items[0]) / 3;
                 var target = monkey.ItemTest.Perform(item);
                 
