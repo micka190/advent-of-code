@@ -1,6 +1,6 @@
 ﻿namespace Solution;
 
-public class BreadthFirstSearch
+public static class BreadthFirstSearch
 {
     public static List<Cell> Search(HeightMap map)
     {
