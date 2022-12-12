@@ -31,15 +31,21 @@ public static class BreadthFirstSearch
             }
         }
 
-        return BuildPath(map, cameFrom);
+        return BuildPath(start, end, cameFrom);
     }
 
-    private static List<Cell> BuildPath(HeightMap map, IReadOnlyDictionary<Cell, Cell?> cameFrom)
+    private static List<Cell> BuildPath(Cell start, Cell end, IReadOnlyDictionary<Cell, Cell?> cameFrom)
     {
-        var pathCell = map.End;
+        // End was not found, so no path can be built.
+        if (!cameFrom.ContainsKey(end))
+        {
+            return new List<Cell>();
+        }
+        
+        var pathCell = end;
         var path = new List<Cell>();
         
-        while (pathCell != map.Start)
+        while (pathCell != start)
         {
             path.Add(pathCell);
             

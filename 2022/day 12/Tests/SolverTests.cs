@@ -20,4 +20,23 @@ public class SolverTests
         // Assert
         steps.Should().Be(expectedSteps);
     }
+
+    [Fact]
+    public void SolveForPartTwo_ReturnsExpectedAnswer_GivenAdventOfCodeExampleInput()
+    {
+        // Arrange
+        const string input = "Sabqponm\n" +
+                             "abcryxxl\n" +
+                             "accszExk\n" +
+                             "acctuvwj\n" +
+                             "abdefghi\n";
+        const int expectedSteps = 29;
+        var solver = new Solver();
+
+        // Act
+        var steps = solver.SolveForPartTwo(input);
+
+        // Assert
+        steps.Should().Be(expectedSteps);
+    }
 }
