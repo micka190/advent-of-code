@@ -15,7 +15,7 @@ public class BreadthFirstSearchTests
         var map = new HeightMap(representation);
 
         // Act
-        var path = BreadthFirstSearch.Search(map);
+        var path = BreadthFirstSearch.Search(map, map.Start, map.End);
 
         // Assert
         path.Should().HaveCount(expectedSteps);

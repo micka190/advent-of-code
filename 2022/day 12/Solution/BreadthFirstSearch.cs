@@ -2,21 +2,21 @@
 
 public static class BreadthFirstSearch
 {
-    public static List<Cell> Search(HeightMap map)
+    public static List<Cell> Search(HeightMap map, Cell start, Cell end)
     {
         var frontier = new Queue<Cell>();
-        frontier.Enqueue(map.Start);
+        frontier.Enqueue(start);
 
         var cameFrom = new Dictionary<Cell, Cell?>
         {
-            [map.Start] = null
+            [start] = null
         };
 
         while (frontier.Count > 0)
         {
             var current = frontier.Dequeue();
 
-            if (current == map.End)
+            if (current == end)
             {
                 break;
             }
