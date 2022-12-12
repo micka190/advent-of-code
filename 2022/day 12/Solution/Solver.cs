@@ -29,7 +29,7 @@ public class Solver
 
         var shortestPath = possibleStartingPoints
             .Select(startingPoint => BreadthFirstSearch.Search(map, startingPoint, map.End))
-            .Where(path => path.Last().Value == map.End.Value)
+            .Where(path => path.Count > 0 && path.Last().Value == map.End.Value)
             .Select(path => path.Count)
             .MinBy(steps => steps);
 
