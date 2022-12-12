@@ -94,9 +94,9 @@ public class HeightMap
             return neighbor.Value == SecondValue;
         }
 
-        if (current.Value == SecondToLastValue && neighbor.Value == EndValue)
+        if (neighbor.Value == EndValue)
         {
-            return true;
+            return current.Value == SecondToLastValue ;
         }
 
         return neighbor.Value == StartValue || neighbor.Value - current.Value <= 1;

@@ -29,13 +29,14 @@ public class HeightMapTests
     }
 
     [Theory]
+    // Note: [X] middle should all have "2" neighbors, since 'E' is not a valid neighbor of 'a'.
     [InlineData(0, 0, 2)] // Top left
-    [InlineData(1, 0, 3)] // Top middle
+    [InlineData(1, 0, 2)] // Top middle
     [InlineData(2, 0, 2)] // Top right
-    [InlineData(0, 1, 3)] // Center left
-    [InlineData(2, 1, 3)] // Center right
+    [InlineData(0, 1, 2)] // Center left
+    [InlineData(2, 1, 2)] // Center right
     [InlineData(0, 2, 2)] // Bottom left
-    [InlineData(1, 2, 3)] // Bottom middle
+    [InlineData(1, 2, 2)] // Bottom middle
     [InlineData(2, 2, 2)] // Bottom right
     public void GetNeighbors_DoesNotGoOutOfBounds_GivenEdgeCoordinate(int x, int y, int expectedNumberOfNeighbors)
     {
