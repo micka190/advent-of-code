@@ -6,9 +6,9 @@ public class HeightMapTests
     public void Constructor_BuildsGrid_FromMapRepresentation()
     {
         // Arrange
-        const string representation = "aaaaa\n" +
+        const string representation = "Saaaa\n" +
                                       "bbbbb\n" +
-                                      "ccccc\n";
+                                      "ccccE\n";
 
         // Act
         var map = new HeightMap(representation);
@@ -17,11 +17,14 @@ public class HeightMapTests
         map.Rows.Should().Be(3);
         map.Columns.Should().Be(5);
 
+        map.Start.Should().Be(map[0, 0]);
+        map.End.Should().Be(map[map.Columns - 1, map.Rows - 1]);
+        
         map.Grid.Should().BeEquivalentTo(new[,]
         {
-            { new Cell(0, 0, 'a'), new Cell(1, 0, 'a'), new Cell(2, 0, 'a'), new Cell(3, 0, 'a'), new Cell(4, 0, 'a'), },
+            { new Cell(0, 0, 'S'), new Cell(1, 0, 'a'), new Cell(2, 0, 'a'), new Cell(3, 0, 'a'), new Cell(4, 0, 'a'), },
             { new Cell(0, 1, 'b'), new Cell(1, 1, 'b'), new Cell(2, 1, 'b'), new Cell(3, 1, 'b'), new Cell(4, 1, 'b'), },
-            { new Cell(0, 2, 'c'), new Cell(1, 2, 'c'), new Cell(2, 2, 'c'), new Cell(3, 2, 'c'), new Cell(4, 2, 'c'), },
+            { new Cell(0, 2, 'c'), new Cell(1, 2, 'c'), new Cell(2, 2, 'c'), new Cell(3, 2, 'c'), new Cell(4, 2, 'E'), },
         });
     }
 
@@ -30,16 +33,15 @@ public class HeightMapTests
     [InlineData(1, 0, 3)] // Top middle
     [InlineData(2, 0, 2)] // Top right
     [InlineData(0, 1, 3)] // Center left
-    [InlineData(1, 1, 4)] // Center middle
     [InlineData(2, 1, 3)] // Center right
     [InlineData(0, 2, 2)] // Bottom left
     [InlineData(1, 2, 3)] // Bottom middle
     [InlineData(2, 2, 2)] // Bottom right
-    public void GetNeighbors_DoesNotGoOutOfBounds_GivenCoordinate(int x, int y, int expectedNumberOfNeighbors)
+    public void GetNeighbors_DoesNotGoOutOfBounds_GivenEdgeCoordinate(int x, int y, int expectedNumberOfNeighbors)
     {
         // Arrange
-        const string representation = "aaa\n" +
-                                      "aaa\n" +
+        const string representation = "Saa\n" +
+                                      "aEa\n" +
                                       "aaa\n";
         var map = new HeightMap(representation);
 

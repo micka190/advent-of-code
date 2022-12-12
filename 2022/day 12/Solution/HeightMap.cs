@@ -11,6 +11,8 @@ public class HeightMap
     public readonly int Rows;
 
     public readonly Cell[,] Grid;
+    public readonly Cell Start;
+    public readonly Cell End;
 
     private readonly Dictionary<Cell, List<Cell>> _neighbors = new();
 
@@ -27,8 +29,29 @@ public class HeightMap
         {
             for (var col = 0; col < Columns; ++col)
             {
-                Grid[row, col] = new Cell(col, row, lines[row][col]);
+                var cell = new Cell(col, row, lines[row][col]);
+                
+                Grid[row, col] = cell;
+                
+                if (cell.Value == StartValue)
+                {
+                    Start = cell;
+                }
+                else if (cell.Value == EndValue)
+                {
+                    End = cell;
+                }
             }
+        }
+
+        if (Start is null)
+        {
+            throw new FormatException("Could not find Start position in map representation");
+        }
+
+        if (End is null)
+        {
+            throw new FormatException("Could not find End position in map representation");
         }
 
         for (var row = 0; row < Rows; ++row)
