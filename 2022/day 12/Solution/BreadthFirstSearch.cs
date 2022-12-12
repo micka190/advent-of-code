@@ -36,7 +36,9 @@ public static class BreadthFirstSearch
         while (pathCell != map.Start)
         {
             path.Add(pathCell);
-            pathCell = cameFrom[pathCell];
+            
+            // cameFrom[map.Start] is the only null value. Since we can't access it in this loop, we can suppress null here. 
+            pathCell = cameFrom[pathCell]!; 
         }
         path.Reverse();
 
