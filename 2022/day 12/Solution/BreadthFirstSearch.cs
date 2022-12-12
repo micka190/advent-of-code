@@ -15,6 +15,12 @@ public static class BreadthFirstSearch
         while (frontier.Count > 0)
         {
             var current = frontier.Dequeue();
+
+            if (current == map.End)
+            {
+                break;
+            }
+            
             foreach (var next in map.GetNeighbors(current))
             {
                 if (!cameFrom.ContainsKey(next))
