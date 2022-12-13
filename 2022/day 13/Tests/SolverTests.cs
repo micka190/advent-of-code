@@ -32,7 +32,8 @@ public class SolverTests
 
         const int expectedSumOfPairs = 13;
 
-        var solver = new Solver();
+        var comparer = new PacketComparer();
+        var solver = new Solver(comparer);
 
         // Act
         var result = solver.SolveForPartOne(input);
@@ -71,7 +72,8 @@ public class SolverTests
 
         const int expectedDecoderKey = 140;
 
-        var solver = new Solver();
+        var comparer = new PacketComparer();
+        var solver = new Solver(comparer);
 
         // Act
         var result = solver.SolveForPartTwo(input);

@@ -11,7 +11,8 @@ public static class Program
         else if (File.Exists(args[0]))
         {
             var input = File.ReadAllText(args[0]);
-            var solver = new Solver();
+            var comparer = new PacketComparer();
+            var solver = new Solver(comparer);
             Console.WriteLine($"PART 1 - {solver.SolveForPartOne(input)}");
             Console.WriteLine($"PART 2 - {solver.SolveForPartTwo(input)}");
         }
