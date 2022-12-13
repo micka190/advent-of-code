@@ -2,9 +2,9 @@
 
 namespace Solution;
 
-public static class PacketFactory
+public class PacketFactory
 {
-    public static List<(Packet Left, Packet Right)> PairsFromInput(string input)
+    public List<(Packet Left, Packet Right)> PairsFromInput(string input)
     {
         if (string.IsNullOrEmpty(input))
         {
@@ -24,7 +24,7 @@ public static class PacketFactory
             .ToList();
     }
 
-    public static List<Packet> ListFromInput(string input)
+    public List<Packet> ListFromInput(string input)
     {
         if (string.IsNullOrEmpty(input))
         {

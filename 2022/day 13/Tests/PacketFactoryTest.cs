@@ -10,8 +10,10 @@ public class PacketFactoryTest
         const string secondPairInput = "[1,1,5,1,1]";
         const string input = $"{firstPairInput}\n{secondPairInput}";
 
+        var factory = new PacketFactory();
+        
         // Act
-        var (left, right) = PacketFactory.PairsFromInput(input)[0];
+        var (left, right) = factory.PairsFromInput(input)[0];
 
         // Assert
         left.Should().BeOfType<ListPacket>();
@@ -43,9 +45,11 @@ public class PacketFactoryTest
         const string firstPairInput = "[[1],[2,3,4]]";
         const string secondPairInput = "[[1],4]";
         const string input = $"{firstPairInput}\n{secondPairInput}";
+        
+        var factory = new PacketFactory();
 
         // Act
-        var (left, right) = PacketFactory.PairsFromInput(input)[0];
+        var (left, right) = factory.PairsFromInput(input)[0];
 
         // Assert
         left.Should().BeOfType<ListPacket>();
@@ -77,8 +81,10 @@ public class PacketFactoryTest
         const string secondPairInput = "[[]]";
         const string input = $"{firstPairInput}\n{secondPairInput}";
 
+        var factory = new PacketFactory();
+
         // Act
-        var (left, right) = PacketFactory.PairsFromInput(input)[0];
+        var (left, right) = factory.PairsFromInput(input)[0];
 
         // Assert
         left.Should().BeOfType<ListPacket>();
@@ -124,8 +130,10 @@ public class PacketFactoryTest
 
         const int expectedNumberOfElements = 16;
 
+        var factory = new PacketFactory();
+
         // Act
-        var results = PacketFactory.ListFromInput(input);
+        var results = factory.ListFromInput(input);
 
         // Assert
         results.Should().HaveCount(expectedNumberOfElements);
