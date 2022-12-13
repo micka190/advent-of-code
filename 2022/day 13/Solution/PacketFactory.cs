@@ -4,7 +4,7 @@ namespace Solution;
 
 public static class PacketFactory
 {
-    public static List<(Packet Left, Packet Right)> FromInput(string input)
+    public static List<(Packet Left, Packet Right)> PairsFromInput(string input)
     {
         if (string.IsNullOrEmpty(input))
         {

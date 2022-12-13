@@ -3,7 +3,7 @@
 public class PacketFactoryTest
 {
     [Fact]
-    public void FromInput_ReturnsExpectedPair_GivenFirstPairFromAdventOfCodeExampleInput()
+    public void PairsFromInput_ReturnsExpectedPair_GivenFirstPairFromAdventOfCodeExampleInput()
     {
         // Arrange
         const string firstPairInput = "[1,1,3,1,1]";
@@ -11,7 +11,7 @@ public class PacketFactoryTest
         const string input = $"{firstPairInput}\n{secondPairInput}";
 
         // Act
-        var (left, right) = PacketFactory.FromInput(input)[0];
+        var (left, right) = PacketFactory.PairsFromInput(input)[0];
 
         // Assert
         left.Should().BeOfType<ListPacket>();
@@ -37,7 +37,7 @@ public class PacketFactoryTest
     }
     
     [Fact]
-    public void FromInput_ReturnsExpectedPair_GivenSecondPairFromAdventOfCodeExampleInput()
+    public void PairsFromInput_ReturnsExpectedPair_GivenSecondPairFromAdventOfCodeExampleInput()
     {
         // Arrange
         const string firstPairInput = "[[1],[2,3,4]]";
@@ -45,7 +45,7 @@ public class PacketFactoryTest
         const string input = $"{firstPairInput}\n{secondPairInput}";
 
         // Act
-        var (left, right) = PacketFactory.FromInput(input)[0];
+        var (left, right) = PacketFactory.PairsFromInput(input)[0];
 
         // Assert
         left.Should().BeOfType<ListPacket>();
@@ -70,7 +70,7 @@ public class PacketFactoryTest
     }
     
     [Fact]
-    public void FromInput_ReturnsExpectedPair_GivenSeventhPairFromAdventOfCodeExampleInput()
+    public void PairsFromInput_ReturnsExpectedPair_GivenSeventhPairFromAdventOfCodeExampleInput()
     {
         // Arrange
         const string firstPairInput = "[[[]]]";
@@ -78,7 +78,7 @@ public class PacketFactoryTest
         const string input = $"{firstPairInput}\n{secondPairInput}";
 
         // Act
-        var (left, right) = PacketFactory.FromInput(input)[0];
+        var (left, right) = PacketFactory.PairsFromInput(input)[0];
 
         // Assert
         left.Should().BeOfType<ListPacket>();

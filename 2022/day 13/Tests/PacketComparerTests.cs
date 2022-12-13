@@ -14,7 +14,7 @@ public class PacketComparerTests
     public void Compare_ReturnsExpectedAnswer_GivenAdventOfCodeExamplePairs(string packetPair, int expectedComparisonResult)
     {
         // Arrange
-        var (left, right) = PacketFactory.FromInput(packetPair)[0];
+        var (left, right) = PacketFactory.PairsFromInput(packetPair)[0];
         var comparer = new PacketComparer();
 
         // Act
