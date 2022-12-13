@@ -24,6 +24,17 @@ public static class PacketFactory
             .ToList();
     }
 
+    public static List<Packet> ListFromInput(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+        {
+            return new List<Packet>();
+        }
+
+        var noBlankLines = input.Trim().Replace("\n\n", "\n").Split('\n');
+        return noBlankLines.Select(FromJsonString).ToList();
+    }
+
     private static Packet FromJsonString(string json)
     {
         var element = (JsonElement)JsonSerializer.Deserialize<object>(json)!;
