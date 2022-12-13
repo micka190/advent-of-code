@@ -2,7 +2,7 @@
 
 namespace Solution;
 
-public class PacketFactory
+public static class PacketFactory
 {
     public static List<(Packet Left, Packet Right)> FromInput(string input)
     {
