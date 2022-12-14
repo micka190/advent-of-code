@@ -20,7 +20,8 @@ public class StoneParser
                 .Select(ParseLine)
                 .ToList();
 
-        return new ParserResult(paths, new Point(_maxX, _maxY));
+        // "+ 1" because path range in inclusive, so _maxX and _maxY are the biggest valid indexes.
+        return new ParserResult(paths, _maxX + 1, _maxY + 1);
     }
 
     private List<Point> ParseLine(string line) =>

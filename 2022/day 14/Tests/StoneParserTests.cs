@@ -17,8 +17,8 @@ public class StoneParserTests
         var result = parser.Parse(input);
 
         // Assert
-        result.Max.X.Should().Be(10);
-        result.Max.Y.Should().Be(10);
+        result.Width.Should().Be(11);
+        result.Height.Should().Be(11);
         
         result.Paths.Should().HaveCount(3);
         

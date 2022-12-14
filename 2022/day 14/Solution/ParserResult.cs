@@ -2,4 +2,4 @@
 
 namespace Solution;
 
-public record ParserResult(List<List<Point>> Paths, Point Max);
+public record ParserResult(List<List<Point>> Paths, int Width, int Height);
