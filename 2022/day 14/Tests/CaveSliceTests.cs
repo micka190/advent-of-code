@@ -147,7 +147,7 @@ public class CaveSliceTests
 
         // Act
         var result = SandResult.Stopped;
-        while (result is not SandResult.FellInAbyss)
+        while (result is SandResult.Stopped)
         {
             result = caveSlice.SimulateGrainOfSand();
             var visualization = caveSlice.VisualizeChunk(new Point(494, 0), new Point(503, 9));

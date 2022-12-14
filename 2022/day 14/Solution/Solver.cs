@@ -13,7 +13,7 @@ public class Solver
 
         var counter = 0;
         var result = SandResult.Stopped;
-        while (result is not SandResult.FellInAbyss)
+        while (result is SandResult.Stopped)
         {
             result = cave.SimulateGrainOfSand();
             if (result is SandResult.Stopped)
