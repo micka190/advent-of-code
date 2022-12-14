@@ -19,8 +19,6 @@ public class StoneParserTests
         // Assert
         result.Max.X.Should().Be(10);
         result.Max.Y.Should().Be(10);
-        result.Min.X.Should().Be(0);
-        result.Min.Y.Should().Be(0);
         
         result.Paths.Should().HaveCount(3);
         

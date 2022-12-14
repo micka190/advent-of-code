@@ -4,15 +4,11 @@ namespace Solution;
 
 public class StoneParser
 {
-    private int _minX;
-    private int _minY;
     private int _maxX;
     private int _maxY;
     
     public ParserResult Parse(string input)
     {
-        _minX = 0;
-        _minY = 0;
         _maxX = 0;
         _maxY = 0;
         
@@ -24,7 +20,7 @@ public class StoneParser
                 .Select(ParseLine)
                 .ToList();
 
-        return new ParserResult(paths, new Point(_maxX, _maxY), new Point(_minX, _minY));
+        return new ParserResult(paths, new Point(_maxX, _maxY));
     }
 
     private List<Point> ParseLine(string line) =>
@@ -43,8 +39,6 @@ public class StoneParser
 
         var coordinate = new Point(int.Parse(segments[0]), int.Parse(segments[1]));
         
-        _minX = Math.Min(_minX, coordinate.X);
-        _minY = Math.Min(_minY, coordinate.Y);
         _maxX = Math.Max(_maxX, coordinate.X);
         _maxY = Math.Max(_maxY, coordinate.Y);
 
