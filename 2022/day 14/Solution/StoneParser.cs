@@ -13,7 +13,6 @@ public class StoneParser
                 .Select(ParseLine)
                 .ToList();
 
-
     private static List<Point> ParseLine(string line) =>
         line
             .Split(" -> ")
