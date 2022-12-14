@@ -4,4 +4,5 @@ public enum SandResult
 {
     Stopped,
     FellInAbyss,
+    SourceBlocked,
 }

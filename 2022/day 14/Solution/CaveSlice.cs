@@ -131,7 +131,9 @@ public class CaveSlice
                 }
                 
                 Grid[position.Y, position.X] = Cell.Sand;
-                return SandResult.Stopped;
+                return position == new Point(SandOriginX, SandOriginY)
+                    ? SandResult.SourceBlocked
+                    : SandResult.Stopped;
             }
         }
 
