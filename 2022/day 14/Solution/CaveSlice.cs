@@ -10,12 +10,14 @@ public class CaveSlice
     public readonly int Width;
     public readonly int Height;
     public readonly Cell[,] Grid;
+    public readonly int Padding;
 
-    public CaveSlice(int width, int height, List<List<Point>> stonePaths)
+    public CaveSlice(int width, int height, List<List<Point>> stonePaths, int padding = 0)
     {
-        Width = width;
+        Width = width + padding * 2;
         Height = height;
         Grid = new Cell[Height, Width];
+        Padding = padding;
 
         for (var y = 0; y < Height; ++y)
         {
@@ -31,11 +33,11 @@ public class CaveSlice
             {
                 var from = path[i];
                 var to = path[i + 1];
-                DrawLine(Grid, from, to, Cell.Stone);
+                DrawLine(Grid, from, to, Cell.Stone, padding);
             }
         }
 
-        Grid[SandOriginY, SandOriginX] = Cell.SandOrigin;
+        Grid[SandOriginY, SandOriginX + Padding] = Cell.SandOrigin;
     }
 
     public Cell this[int x, int y]
@@ -87,8 +89,8 @@ public class CaveSlice
 
     public SandResult SimulateGrainOfSand()
     {
-        var origin = new Point(SandOriginX, SandOriginY);
-        var position = origin with { Y = origin.Y + 1 };
+        var origin = new Point(SandOriginX + Padding, SandOriginY);
+        var position = origin;
 
         if (position.Y >= Height)
         {
@@ -131,7 +133,7 @@ public class CaveSlice
                 }
                 
                 Grid[position.Y, position.X] = Cell.Sand;
-                return position == new Point(SandOriginX, SandOriginY)
+                return position == origin
                     ? SandResult.SourceBlocked
                     : SandResult.Stopped;
             }
@@ -157,26 +159,26 @@ public class CaveSlice
         return Grid[destination.Y, destination.X] is Cell.Air;
     }
 
-    private static void DrawLine(Cell[,] grid, Point from, Point to, Cell stroke)
+    private static void DrawLine(Cell[,] grid, Point from, Point to, Cell stroke, int padding)
     {
         if (from == to)
         {
-            grid[from.Y, from.X] = stroke;
+            grid[from.Y, from.X + padding] = stroke;
         }
         else if (from.X != to.X)
         {
-            DrawHorizontalLine(grid, from, to, stroke);
+            DrawHorizontalLine(grid, from, to, stroke, padding);
         }
         else if (from.Y != to.Y)
         {
-            DrawVerticalLine(grid, from, to, stroke);
+            DrawVerticalLine(grid, from, to, stroke, padding);
         }
     }
 
-    private static void DrawHorizontalLine(Cell[,] grid, Point from, Point to, Cell strokeCharacter)
+    private static void DrawHorizontalLine(Cell[,] grid, Point from, Point to, Cell strokeCharacter, int padding)
     {
-        var start = Math.Min(from.X, to.X);
-        var end = Math.Max(from.X, to.X);
+        var start = Math.Min(from.X, to.X) + padding;
+        var end = Math.Max(from.X, to.X) + padding;
 
         // NOTE: "<=" because coordinates have inclusive bounds.
         for (var x = start; x <= end; ++x)
@@ -185,7 +187,7 @@ public class CaveSlice
         }
     }
 
-    private static void DrawVerticalLine(Cell[,] grid, Point from, Point to, Cell strokeCharacter)
+    private static void DrawVerticalLine(Cell[,] grid, Point from, Point to, Cell strokeCharacter, int padding)
     {
         var start = Math.Min(from.Y, to.Y);
         var end = Math.Max(from.Y, to.Y);
@@ -193,7 +195,7 @@ public class CaveSlice
         // NOTE: "<=" because coordinates have inclusive bounds.
         for (var y = start; y <= end; ++y)
         {
-            grid[y, from.X] = strokeCharacter;
+            grid[y, from.X + padding] = strokeCharacter;
         }
     }
 }

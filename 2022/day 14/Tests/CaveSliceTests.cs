@@ -150,7 +150,7 @@ public class CaveSliceTests
         while (result is SandResult.Stopped)
         {
             result = caveSlice.SimulateGrainOfSand();
-            var visualization = caveSlice.VisualizeChunk(new Point(494, 0), new Point(503, 9));
+            // var visualization = caveSlice.VisualizeChunk(new Point(494, 0), new Point(503, 9)); // For debugging purposes.
             if (result is SandResult.Stopped)
             {
                 cameToRest++;
