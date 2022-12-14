@@ -128,4 +128,36 @@ public class CaveSliceTests
         // Assert
         chunk.Should().Be(expectedChunk);
     }
+
+    [Fact]
+    public void SimulateGrainOfSand_ReturnsExpectedValue_GivenAdventOfCodeExampleInput()
+    {
+        // Arrange
+        const int expectedCameToRestCount = 24;
+        
+        var paths = new List<List<Point>>
+        {
+            new() { new Point(498, 4), new Point(498, 6), new Point(496, 6) },
+            new() { new Point(503, 4), new Point(502, 4), new Point(502, 9), new Point(494, 9) },
+        };
+
+        var caveSlice = new CaveSlice(504, 10, paths);
+
+        var cameToRest = 0;
+
+        // Act
+        var result = SandResult.Stopped;
+        while (result is not SandResult.FellInAbyss)
+        {
+            result = caveSlice.SimulateGrainOfSand();
+            var visualization = caveSlice.VisualizeChunk(new Point(494, 0), new Point(503, 9));
+            if (result is SandResult.Stopped)
+            {
+                cameToRest++;
+            }
+        }
+
+        // Assert
+        cameToRest.Should().Be(expectedCameToRestCount);
+    }
 }

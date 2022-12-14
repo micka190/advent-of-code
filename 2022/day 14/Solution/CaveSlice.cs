@@ -6,7 +6,7 @@ public class CaveSlice
 {
     public const int SandOriginX = 500;
     public const int SandOriginY = 0;
-    
+
     public readonly int Width;
     public readonly int Height;
     public readonly Cell[,] Grid;
@@ -37,7 +37,7 @@ public class CaveSlice
 
         Grid[SandOriginY, SandOriginX] = Cell.SandOrigin;
     }
-    
+
     public Cell this[int x, int y]
     {
         // 2D arrays are [row,col], so we need to use [y,x] given (x,y).
@@ -55,14 +55,14 @@ public class CaveSlice
         {
             throw new ArgumentException("Invalid start position", nameof(start));
         }
-        
+
         if (end.X < 0 || end.X + 1 > Width || end.Y < 0 || end.Y + 1 > Height)
         {
             throw new ArgumentException("Invalid end position", nameof(end));
         }
-        
+
         var visualization = string.Empty;
-        
+
         for (var y = start.Y; y <= end.Y; ++y)
         {
             for (var x = start.X; x <= end.X; ++x)
@@ -84,7 +84,77 @@ public class CaveSlice
 
         return visualization.Trim();
     }
-    
+
+    public SandResult SimulateGrainOfSand()
+    {
+        var origin = new Point(SandOriginX, SandOriginY);
+        var position = origin with { Y = origin.Y + 1 };
+
+        if (position.Y >= Height)
+        {
+            return SandResult.FellInAbyss;
+        }
+
+        while (position.Y < Height)
+        {
+            var (left, middle, right) = GetBelow(position);
+
+            if (CanMove(middle))
+            {
+                position = middle;
+                if (position.Y >= Height)
+                {
+                    return SandResult.FellInAbyss;
+                }
+            }
+            else if (CanMove(left))
+            {
+                position = left;
+                if (position.Y >= Height)
+                {
+                    return SandResult.FellInAbyss;
+                }
+            }
+            else if (CanMove(right))
+            {
+                position = right;
+                if (position.Y >= Height)
+                {
+                    return SandResult.FellInAbyss;
+                }
+            }
+            else
+            {
+                if (left.Y >= Height && middle.Y >= Height && right.Y >= Height)
+                {
+                    return SandResult.FellInAbyss;
+                }
+                
+                Grid[position.Y, position.X] = Cell.Sand;
+                return SandResult.Stopped;
+            }
+        }
+
+        return SandResult.FellInAbyss;
+    }
+
+    private (Point Left, Point Middle, Point Right) GetBelow(Point coordinate) =>
+    (
+        Left: coordinate with { X = coordinate.X - 1, Y = coordinate.Y + 1 },
+        Middle: coordinate with { Y = coordinate.Y + 1 },
+        Right: coordinate with { X = coordinate.X + 1, Y = coordinate.Y + 1 }
+    );
+
+    private bool CanMove(Point destination)
+    {
+        if (destination.X < 0 || destination.X >= Width || destination.Y >= Height || destination.Y < 0)
+        {
+            return false;
+        }
+
+        return Grid[destination.Y, destination.X] is Cell.Air;
+    }
+
     private static void DrawLine(Cell[,] grid, Point from, Point to, Cell stroke)
     {
         if (from == to)
@@ -105,19 +175,19 @@ public class CaveSlice
     {
         var start = Math.Min(from.X, to.X);
         var end = Math.Max(from.X, to.X);
-        
+
         // NOTE: "<=" because coordinates have inclusive bounds.
         for (var x = start; x <= end; ++x)
         {
             grid[from.Y, x] = strokeCharacter;
         }
     }
-    
+
     private static void DrawVerticalLine(Cell[,] grid, Point from, Point to, Cell strokeCharacter)
     {
         var start = Math.Min(from.Y, to.Y);
         var end = Math.Max(from.Y, to.Y);
-        
+
         // NOTE: "<=" because coordinates have inclusive bounds.
         for (var y = start; y <= end; ++y)
         {
