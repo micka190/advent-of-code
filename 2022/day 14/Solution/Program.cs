@@ -14,7 +14,7 @@ public static class Program
             var parser = new StoneParser();
             var solver = new Solver(parser);
             Console.WriteLine($"PART 1 - {solver.SolveForPartOne(input)}");
-            // TODO: Solve Part 2
+            Console.WriteLine($"PART 2 - {solver.SolveForPartTwo(input)}");
         }
         else
         {
