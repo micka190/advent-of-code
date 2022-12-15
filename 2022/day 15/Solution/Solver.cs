@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Solution;
+﻿namespace Solution;
 
 public class Solver
 {
@@ -39,7 +37,7 @@ public class Solver
     {
         const int tuningFrequencyMultiplier = 4000000;
 
-        var (sensors, beacons) = _parser.Parse(input);
+        var (sensors, _) = _parser.Parse(input);
         var edgeCoordinates = sensors
             .Select(GetEdgeCoordinates)
             .SelectMany(coordinate => coordinate);

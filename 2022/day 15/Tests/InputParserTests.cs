@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Tests;
+﻿namespace Tests;
 
 public class InputParserTests
 {

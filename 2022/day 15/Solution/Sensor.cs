@@ -1,10 +1,8 @@
-﻿using System.Drawing;
-
-namespace Solution;
+﻿namespace Solution;
 
 public class Sensor
 {
-    public Coordinate Position { get; set; }
+    public Coordinate Position { get; set; } = new(0, 0);
     public Beacon ClosestBeacon { get; set; } = new();
 
     public long DistanceToBeacon => DistanceTo(ClosestBeacon.Position);

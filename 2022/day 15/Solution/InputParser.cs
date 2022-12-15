@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Solution;
+﻿namespace Solution;
 
 public class InputParser
 {
