@@ -15,7 +15,7 @@ public static class Program
             var solver = new Solver(parser);
 
             Console.WriteLine($"PART 1 - {solver.SolveForPartOne(input, 2000000)}");
-            // TODO: Part 2
+            Console.WriteLine($"PART 2 - {solver.SolveForPartTwo(input, 4000000)}");
         }
         else
         {
