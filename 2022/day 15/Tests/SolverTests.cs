@@ -27,7 +27,7 @@ public class SolverTests
         var solver = new Solver(parser);
 
         // Act
-        var result = solver.SolveForPartOne(input);
+        var result = solver.SolveForPartOne(input, 10);
 
         // Assert
         result.Should().Be(expectedAnswer);

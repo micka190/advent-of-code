@@ -47,8 +47,8 @@ public class InputParserTests
         beacons.Should().HaveCount(expectedNumberOfBeacons);
 
         var firstSensor = FindSensorAtPosition(sensors, 2, 18);
-        firstSensor.Position.Should().BeEquivalentTo(new Point(2, 18));
-        firstSensor.ClosestBeacon.Position.Should().BeEquivalentTo(new Point(-2, 15));
+        firstSensor.Position.Should().BeEquivalentTo(new Coordinate(2, 18));
+        firstSensor.ClosestBeacon.Position.Should().BeEquivalentTo(new Coordinate(-2, 15));
 
         var firstSharingSensor = FindSensorAtPosition(sensors, 12, 14);
         var secondSharingSensor = FindSensorAtPosition(sensors, 10, 20);

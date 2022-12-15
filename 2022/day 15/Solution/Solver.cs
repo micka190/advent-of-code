@@ -8,23 +8,24 @@ public class Solver
 
     public Solver(InputParser parser) => _parser = parser;
 
-    public int SolveForPartOne(string input)
+    public long SolveForPartOne(string input, int y)
     {
-        const int targetY = 10;
-        
         var (sensors, beacons) = _parser.Parse(input);
 
-        sensors.Sort((left, right) => left.Position.X - right.Position.X);
-        beacons.Sort((left, right) => left.Position.X - right.Position.X);
-        
-        var rangeStart = Math.Min(sensors[0].Position.X, beacons[0].Position.X);
-        var rangeEnd = Math.Max(sensors[^1].Position.X, beacons[^1].Position.X);
+        sensors.Sort((left, right) => left.Position.X.CompareTo(right.Position.X));
+        beacons.Sort((left, right) => left.Position.X.CompareTo(right.Position.X));
 
-        var invalidPositionCount = 0;
+        var leftMostSensorRadiusEdge = sensors.Select(sensor => sensor.Position.X - sensor.DistanceToBeacon).Order().First();
+        var rightMostSensorRadiusEdge = sensors.Select(sensor => sensor.Position.X + sensor.DistanceToBeacon).OrderDescending().First();
+        
+        var rangeStart = Math.Min(leftMostSensorRadiusEdge, beacons[0].Position.X);
+        var rangeEnd = Math.Max(rightMostSensorRadiusEdge, beacons[^1].Position.X);
+
+        long invalidPositionCount = 0;
 
         for (var x = rangeStart; x < rangeEnd; ++x)
         {
-            var position = new Point(x, targetY);
+            var position = new Coordinate(x, y);
             if (sensors.Any(sensor => position != sensor.ClosestBeacon.Position && sensor.DistanceToBeacon >= sensor.DistanceTo(position)))
             {
                 ++invalidPositionCount;

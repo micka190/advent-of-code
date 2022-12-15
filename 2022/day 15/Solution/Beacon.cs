@@ -1,8 +1,6 @@
-﻿using System.Drawing;
-
-namespace Solution;
+﻿namespace Solution;
 
 public class Beacon
 {
-    public Point Position { get; set; }
+    public Coordinate Position { get; set; }
 }

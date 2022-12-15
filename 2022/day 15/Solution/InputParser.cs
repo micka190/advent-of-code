@@ -75,17 +75,17 @@ public class InputParser
         }
     }
 
-    private static Point ParseCoordinateString(string coordinateString)
+    private static Coordinate ParseCoordinateString(string coordinateString)
     {
         var segments = coordinateString.Split(", ");
         if (segments.Length != 2)
         {
-            throw new FormatException($"Expected \"x=[int], y=[int]\". Got: \"{coordinateString}\"");
+            throw new FormatException($"Expected \"x=[number], y=[number]\". Got: \"{coordinateString}\"");
         }
 
-        var x = int.Parse(segments[0]["x=".Length..]);
-        var y = int.Parse(segments[1]["y=".Length..]);
+        var x = long.Parse(segments[0]["x=".Length..]);
+        var y = long.Parse(segments[1]["y=".Length..]);
 
-        return new Point(x, y);
+        return new Coordinate(x, y);
     }
 }

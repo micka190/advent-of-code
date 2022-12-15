@@ -10,12 +10,12 @@ public class SensorTests
         // Arrange
         var beacon = new Beacon
         {
-            Position = new Point(2, 10)
+            Position = new Coordinate(2, 10)
         };
 
         var sensor = new Sensor
         {
-            Position = new Point(8, 7),
+            Position = new Coordinate(8, 7),
             ClosestBeacon = beacon,
         };
 
@@ -34,14 +34,14 @@ public class SensorTests
         // Arrange
         var sensor = new Sensor
         {
-            Position = new Point(0, 0),
+            Position = new Coordinate(0, 0),
             ClosestBeacon = new Beacon
             {
-                Position = new Point(0, 0) // We don't care about where the beacon is.
+                Position = new Coordinate(0, 0) // We don't care about where the beacon is.
             }
         };
 
-        var position = new Point(10, 10);
+        var position = new Coordinate(10, 10);
 
         const int expectedDistance = 20;
 
