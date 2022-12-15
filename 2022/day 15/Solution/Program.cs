@@ -11,7 +11,10 @@ public static class Program
         else if (File.Exists(args[0]))
         {
             var input = File.ReadAllText(args[0]);
-            // TODO: Part 1
+            var parser = new InputParser();
+            var solver = new Solver(parser);
+
+            Console.WriteLine($"PART 1 - {solver.SolveForPartOne(input)}");
             // TODO: Part 2
         }
         else
