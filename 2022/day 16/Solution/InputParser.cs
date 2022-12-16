@@ -7,8 +7,8 @@ public class InputParser
     private const int MultipleTunnelsIndex = 23;
     private const int SingleTunnelIndex = 22; // "Tunnels" becomes "Tunnel"
     
-    private readonly Dictionary<string, Node> _valves = new();
-    private readonly Dictionary<string, List<string>> _valveTunnels = new();
+    private readonly Dictionary<string, Node> _nodes = new();
+    private readonly Dictionary<string, List<string>> _nodeNeighbors = new();
 
     public List<Node> Parse(string input)
     {
@@ -17,31 +17,31 @@ public class InputParser
             return new List<Node>();
         }
 
-        _valves.Clear();
-        _valveTunnels.Clear();
+        _nodes.Clear();
+        _nodeNeighbors.Clear();
         
         var lines = input.Trim().Split('\n');
         var pairs = lines.Select(ParseLine).ToList();
 
         foreach (var (valveSegment, tunnelSegment) in pairs)
         {
-            var valve = ValveFromSegment(valveSegment);
-            var tunnels = TunnelsFromSegment(tunnelSegment);
-            _valves[valve.Id] = valve;
-            _valveTunnels[valve.Id] = tunnels;
+            var node = NodeFromSegment(valveSegment);
+            var neighbors = NeighborsFromSegment(tunnelSegment);
+            _nodes[node.Id] = node;
+            _nodeNeighbors[node.Id] = neighbors;
         }
 
-        foreach (var (valveName, tunnels) in _valveTunnels)
+        foreach (var (name, neighbors) in _nodeNeighbors)
         {
-            var valve = _valves[valveName];
+            var node = _nodes[name];
             
-            foreach (var tunnel in tunnels)
+            foreach (var tunnel in neighbors)
             {
-                valve.Neighbors.Add(_valves[tunnel]);
+                node.Neighbors.Add(_nodes[tunnel]);
             }
         }
 
-        return _valves.Values.ToList();
+        return _nodes.Values.ToList();
     }
 
     private static (string ValveSegment, string TunnelsSegment) ParseLine(string line)
@@ -55,18 +55,18 @@ public class InputParser
         return (ValveSegment: segments[0], TunnelsSegment: segments[1]);
     }
 
-    private static Node ValveFromSegment(string segment)
+    private static Node NodeFromSegment(string segment)
     {
         var name = segment.Substring(ValveNameIndex, 2);
-        var flowRate = int.Parse(segment[FlowRateIndex..]);
+        var value = int.Parse(segment[FlowRateIndex..]);
         return new Node
         {
             Id = name,
-            Value = flowRate,
+            Value = value,
         };
     }
 
-    private static List<string> TunnelsFromSegment(string segment) =>
+    private static List<string> NeighborsFromSegment(string segment) =>
         segment.Contains(", ")
             ? segment[MultipleTunnelsIndex..]
                 .Split(", ")
