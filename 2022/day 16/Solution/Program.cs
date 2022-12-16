@@ -11,7 +11,10 @@ public static class Program
         else if (File.Exists(args[0]))
         {
             var input = File.ReadAllText(args[0]);
-            // TODO: Solve part 1
+            var parser = new InputParser();
+            var distanceMapper = new GraphDistanceMapper();
+            var solver = new Solver(parser, distanceMapper);
+            Console.WriteLine($"PART 1 - {solver.SolveForPartOne(input)}");
             // TODO: Solve part 2
         }
         else
