@@ -57,13 +57,9 @@ public class InputParser
 
     private static Node NodeFromSegment(string segment)
     {
-        var name = segment.Substring(ValveNameIndex, 2);
+        var id = segment.Substring(ValveNameIndex, 2);
         var value = int.Parse(segment[FlowRateIndex..]);
-        return new Node
-        {
-            Id = name,
-            Value = value,
-        };
+        return new Node(id, value);
     }
 
     private static List<string> NeighborsFromSegment(string segment) =>
