@@ -7,14 +7,14 @@ public class InputParser
     private const int MultipleTunnelsIndex = 23;
     private const int SingleTunnelIndex = 22; // "Tunnels" becomes "Tunnel"
     
-    private readonly Dictionary<string, Valve> _valves = new();
+    private readonly Dictionary<string, Node> _valves = new();
     private readonly Dictionary<string, List<string>> _valveTunnels = new();
 
-    public List<Valve> Parse(string input)
+    public List<Node> Parse(string input)
     {
         if (string.IsNullOrEmpty(input))
         {
-            return new List<Valve>();
+            return new List<Node>();
         }
 
         _valves.Clear();
@@ -27,8 +27,8 @@ public class InputParser
         {
             var valve = ValveFromSegment(valveSegment);
             var tunnels = TunnelsFromSegment(tunnelSegment);
-            _valves[valve.Name] = valve;
-            _valveTunnels[valve.Name] = tunnels;
+            _valves[valve.Id] = valve;
+            _valveTunnels[valve.Id] = tunnels;
         }
 
         foreach (var (valveName, tunnels) in _valveTunnels)
@@ -37,7 +37,7 @@ public class InputParser
             
             foreach (var tunnel in tunnels)
             {
-                valve.TunnelsToVales.Add(_valves[tunnel]);
+                valve.Neighbors.Add(_valves[tunnel]);
             }
         }
 
@@ -55,14 +55,14 @@ public class InputParser
         return (ValveSegment: segments[0], TunnelsSegment: segments[1]);
     }
 
-    private static Valve ValveFromSegment(string segment)
+    private static Node ValveFromSegment(string segment)
     {
         var name = segment.Substring(ValveNameIndex, 2);
         var flowRate = int.Parse(segment[FlowRateIndex..]);
-        return new Valve
+        return new Node
         {
-            Name = name,
-            FlowRate = flowRate,
+            Id = name,
+            Value = flowRate,
         };
     }
 

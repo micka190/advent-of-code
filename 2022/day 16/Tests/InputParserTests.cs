@@ -2,9 +2,9 @@
 
 public class InputParserTests
 {
-    private Valve FindValveByName(List<Valve> valves, string name)
+    private Node FindValveByName(List<Node> valves, string name)
     {
-        var found = valves.Find(valve => valve.Name == name);
+        var found = valves.Find(valve => valve.Id == name);
         if (found is null)
         {
             throw new ArgumentException("Invalid name given", nameof(name));
@@ -42,27 +42,27 @@ public class InputParserTests
         var bb = FindValveByName(results, "BB");
         var dd = FindValveByName(results, "DD");
 
-        aa.Name.Should().Be("AA");
-        aa.FlowRate.Should().Be(0);
-        aa.TunnelsToVales.Should()
+        aa.Id.Should().Be("AA");
+        aa.Value.Should().Be(0);
+        aa.Neighbors.Should()
             .HaveCount(3)
             .And.Contain(bb)
             .And.Contain(dd)
-            .And.Contain(valve => valve.Name == "II");
+            .And.Contain(valve => valve.Id == "II");
         
-        bb.Name.Should().Be("BB");
-        bb.FlowRate.Should().Be(13);
-        bb.TunnelsToVales.Should()
+        bb.Id.Should().Be("BB");
+        bb.Value.Should().Be(13);
+        bb.Neighbors.Should()
             .HaveCount(2)
             .And.Contain(aa)
-            .And.Contain(valve => valve.Name == "CC");
+            .And.Contain(valve => valve.Id == "CC");
         
-        dd.Name.Should().Be("DD");
-        dd.FlowRate.Should().Be(20);
-        dd.TunnelsToVales.Should()
+        dd.Id.Should().Be("DD");
+        dd.Value.Should().Be(20);
+        dd.Neighbors.Should()
             .HaveCount(3)
             .And.Contain(aa)
-            .And.Contain(valve => valve.Name == "CC")
-            .And.Contain(valve => valve.Name == "EE");
+            .And.Contain(valve => valve.Id == "CC")
+            .And.Contain(valve => valve.Id == "EE");
     }
 }
