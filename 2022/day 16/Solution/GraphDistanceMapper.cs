@@ -4,15 +4,17 @@ public class GraphDistanceMapper
 {
     private readonly Dictionary<string, int> _distances = new();
 
+    public List<Node> NodesUsed { get; private set; } = new();
+
     public void MapDistanceBetweenValueNodes(Graph graph)
     {
         _distances.Clear();
 
-        var nodesToUse = graph.Nodes.Where(node => node.Value > 0 || node == graph.StartingNode).ToList();
+        NodesUsed = graph.Nodes.Where(node => node.Value > 0 || node == graph.StartingNode).ToList();
 
-        foreach (var start in nodesToUse)
+        foreach (var start in NodesUsed)
         {
-            foreach (var end in nodesToUse)
+            foreach (var end in NodesUsed)
             {
                 if (start != end)
                 {
